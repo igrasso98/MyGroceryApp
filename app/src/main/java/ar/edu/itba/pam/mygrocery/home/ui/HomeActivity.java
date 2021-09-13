@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
+import java.util.Map;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.product.ProductDb;
 import ar.edu.itba.pam.mygrocery.home.products.OnProductClickedListener;
-import ar.edu.itba.pam.mygrocery.home.products.ProductAdapter;
+import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
@@ -27,7 +29,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     private static final int MARKETS = 1;
 
     private ViewSwitcher viewSwitcher;
-    private ProductAdapter productAdapter;
+    private ProductsAdapter productsAdapter;
     private ProductsView productsView;
 //    TODO: private MarketsView marketsView;
     private BottomNavigationView navView;
@@ -37,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.products_activity);
+        setContentView(R.layout.home_activity);
         createPresenter();
 
         setUpView();
@@ -62,11 +64,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     private void setUpProductsView() {
-        productsView = findViewById(R.id.products_list);
-
-        productAdapter = new ProductAdapter();
-        productAdapter.setOnProductClickedListener(this);
-        productsView.bind(productAdapter);
+        productsView = findViewById(R.id.products_activity);
+        productsAdapter = new ProductsAdapter();
+        productsView.bind(productsAdapter);
     }
 
     private void setUpMarketsView() {
@@ -111,8 +111,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     @Override
-    public void bindProducts(List<Product> model) {
-        productAdapter.setDataset(model);
+    public void bindProducts(Map<Category,List<Product>> model) {
+        productsAdapter.setDataset(model);
     }
 
     @Override

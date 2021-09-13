@@ -2,15 +2,20 @@ package ar.edu.itba.pam.mygrocery.home.products.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import ar.edu.itba.pam.mygrocery.home.products.ProductAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ProductsViewImpl extends RecyclerView implements ProductsView {
+import ar.edu.itba.pam.mygrocery.R;
+import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
+
+public class ProductsViewImpl extends RelativeLayout implements ProductsView {
+
     public ProductsViewImpl(@NonNull Context context) {
         super(context);
     }
@@ -24,9 +29,11 @@ public class ProductsViewImpl extends RecyclerView implements ProductsView {
     }
 
     @Override
-    public void bind(final ProductAdapter productAdapter) {
-        setHasFixedSize(true);
-        setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        setAdapter(productAdapter);
+    public void bind(ProductsAdapter productsAdapter) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.products_activity, this, false);
+        ProductsListViewImpl productsListView = view.findViewById(R.id.products_list);
+        productsListView.bind(productsAdapter);
+        FloatingActionButton addProductButton = view.findViewById(R.id.add_product_button);
+        addView(view);
     }
 }

@@ -2,7 +2,9 @@ package ar.edu.itba.pam.mygrocery.home.ui;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Map;
 
+import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,10 +42,10 @@ public class HomePresenter {
     }
 
     public void onViewAttached() {
-        disposable = productsRepository.getProducts().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onProductsReceived);
+        disposable = productsRepository.getProductsByCategory().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onProductsReceived);
     }
 
-    private void onProductsReceived(final List<Product> model) {
+    private void onProductsReceived(final Map<Category,List<Product>> model) {
         if (view.get() != null) {
             view.get().bindProducts(model);
         }

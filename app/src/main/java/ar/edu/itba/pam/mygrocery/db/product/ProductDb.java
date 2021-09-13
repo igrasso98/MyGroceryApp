@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {ProductEntity.class}, version = 1)
+@Database(entities = {ProductEntity.class, CategoryEntity.class}, version = 2)
 abstract public class ProductDb extends RoomDatabase {
     private static final String NAME = "pm_db";
     private static ProductDb instance;

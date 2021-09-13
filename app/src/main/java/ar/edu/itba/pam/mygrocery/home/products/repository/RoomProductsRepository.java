@@ -1,10 +1,12 @@
 package ar.edu.itba.pam.mygrocery.home.products.repository;
 
 import java.util.List;
+import java.util.Map;
 
+import ar.edu.itba.pam.mygrocery.db.product.ProductWithCategory;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import io.reactivex.Flowable;
 import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
-import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class RoomProductsRepository implements ProductsRepository {
@@ -12,7 +14,7 @@ public class RoomProductsRepository implements ProductsRepository {
     private final ProductDao dao;
     private final ProductMapper mapper;
 
-    private Flowable<List<Product>> products;
+    private Flowable<Map<Category, List<Product>>> products;
 
     public RoomProductsRepository(final ProductDao dao, final ProductMapper mapper) {
         this.dao = dao;
@@ -21,9 +23,22 @@ public class RoomProductsRepository implements ProductsRepository {
 
     @Override
     public Flowable<List<Product>> getProducts() {
-        if (products == null) {
-            Flowable<List<ProductEntity>> pas = dao.getProducts();
-            products = pas.map(mapper::toModel);
+        return null;
+//        if (products == null) {
+//            Flowable<List<ProductEntity>> pas = dao.getProducts();
+//            products = pas.map(mapper::toModel);
+//        }
+//        return products;
+    }
+
+    @Override
+    public Flowable<Map<Category, List<Product>>> getProductsByCategory() {
+        if(products == null) {
+            Flowable<List<ProductWithCategory>> productsList = dao.getProductsByCategory();
+            if (productsList != null) {
+                System.out.println("ENTRE");
+            }
+            products = productsList.map(mapper::toProductsByCategoryModel);
         }
         return products;
     }
