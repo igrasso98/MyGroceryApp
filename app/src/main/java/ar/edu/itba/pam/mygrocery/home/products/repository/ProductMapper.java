@@ -5,7 +5,9 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryAllProducts;
+import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
@@ -20,6 +22,17 @@ public class ProductMapper {
             }
         }
         return productsByCategory;
+    }
+
+    public List<Category> toCategoryModel(final List<CategoryEntity> categoryEntities) {
+        final List<Category> categories = new ArrayList<>();
+        for (final CategoryEntity categoryEntity : categoryEntities) {
+            Category category = categoryFromEntity(categoryEntity, null);
+            if (!categories.contains(category)) {
+                categories.add(category);
+            }
+        }
+        return categories;
     }
 
     public List<ProductEntity> toEntity(final List<Product> products) {
@@ -38,17 +51,19 @@ public class ProductMapper {
     private ProductEntity mapToEntity(Product product) {
         final ProductEntity productEntity = new ProductEntity();
         productEntity.name = product.getName();
+        productEntity.description = product.getDescription();
+        productEntity.categoryId = product.getCategoryId();
         return productEntity;
     }
 
-    private Category categoryFromEntity(CategoryEntity entity, List<ProductEntity> productEntities) {
+    private Category categoryFromEntity(CategoryEntity categoryEntity, List<ProductEntity> productEntities) {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.name, productEntity.description));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description,categoryEntity.category_id));
             }
 
         }
-        return new Category(entity.name, entity.image, products);
+        return new Category(categoryEntity.category_id, categoryEntity.name, categoryEntity.image, products);
     }
 }

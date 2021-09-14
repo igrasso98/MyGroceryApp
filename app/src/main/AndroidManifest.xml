@@ -9,16 +9,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyGrocery" >
+        android:theme="@style/Theme.MyGrocery">
         <activity
             android:name=".home.ui.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MyGrocery.NoActionBar" >
+            android:theme="@style/Theme.MyGrocery.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".home.ui.AddProductActivity"
+            android:theme="@style/Theme.MyGrocery"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="pam" />
+                <data
+                    android:host="products"
+                    android:pathPrefix="/create" />
             </intent-filter>
         </activity>
     </application>

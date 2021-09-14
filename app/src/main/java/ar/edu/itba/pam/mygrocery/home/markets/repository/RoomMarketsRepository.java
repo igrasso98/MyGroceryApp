@@ -3,6 +3,7 @@ package ar.edu.itba.pam.mygrocery.home.markets.repository;
 import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.db.market.MarketDao;
+import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
@@ -21,6 +22,15 @@ public class RoomMarketsRepository implements MarketsRepository {
     }
 
     @Override
+    public Flowable<List<Market>> getMarkets() {
+        if(markets == null) {
+            Flowable<List<MarketEntity>> marketsList = dao.getMarkets();
+            markets = marketsList.map(mapper::toMarketModel);
+        }
+        return markets;
+    }
+
+    @Override
     public Flowable<List<Market>> getProductsByMarket() {
         if (markets == null) {
             Flowable<List<MarketAllProducts>> marketsList = dao.getMarketsAndProducts();
@@ -28,7 +38,6 @@ public class RoomMarketsRepository implements MarketsRepository {
         }
         return markets;
     }
-
 
     @Override
     public void addProduct(Market market, Product product) {

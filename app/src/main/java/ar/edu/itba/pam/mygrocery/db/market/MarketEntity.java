@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class MarketEntity {
     @PrimaryKey()
     @ColumnInfo(name = "market_id")
-    public int market_id;
+    public Long market_id;
 
     @ColumnInfo(name = "market_name")
     public String name;

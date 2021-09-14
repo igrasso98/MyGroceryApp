@@ -28,7 +28,7 @@ public class MainApplication extends Application {
     private void createCategoryDataSet() {
         for (int i = 0; i < 3; i++) {
             final CategoryEntity categoryEntity = new CategoryEntity();
-            categoryEntity.category_id = i;
+            categoryEntity.category_id = Long.valueOf(i);
             categoryEntity.name = "CATEGORY " + i;
             MyGroceryDb.getInstance(getApplicationContext()).categoryDao().insert(categoryEntity);
         }
@@ -40,7 +40,7 @@ public class MainApplication extends Application {
         for (int i = 0; i < 10; i++) {
             final ProductEntity productEntity = new ProductEntity();
             productEntity.name = String.valueOf(Math.random());
-            productEntity.categoryId = i % 3;
+            productEntity.categoryId = Long.valueOf(i % 3);
             list.add(productEntity);
         }
         return list;
@@ -49,7 +49,7 @@ public class MainApplication extends Application {
     private void createMarketsDataSet() {
         for (int i = 0; i < 3; i++) {
             final MarketEntity marketEntity = new MarketEntity();
-            marketEntity.market_id = i;
+            marketEntity.market_id = Long.valueOf(i);
             marketEntity.name = "MARKET " + i;
             MyGroceryDb.getInstance(getApplicationContext()).marketDao().insert(marketEntity);
         }

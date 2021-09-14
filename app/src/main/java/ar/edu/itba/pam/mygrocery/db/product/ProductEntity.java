@@ -14,10 +14,10 @@ import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
 public class ProductEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")
-    public int productId;
+    public Long productId;
 
     @ColumnInfo(name = "my_category_id")
-    public int categoryId;
+    public Long categoryId;
 
     @ColumnInfo(name = "product_name")
     public String name;

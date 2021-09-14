@@ -11,6 +11,7 @@ public interface MarketsRepository {
 
     Flowable<List<Market>> getProductsByMarket();
 
+    Flowable<List<Market>> getMarkets();
 
     void addProduct(final Market market, final Product product);
 

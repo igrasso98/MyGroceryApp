@@ -3,6 +3,7 @@ package ar.edu.itba.pam.mygrocery.db.marketProducts;
 import static androidx.room.ForeignKey.CASCADE;
 import static androidx.room.ForeignKey.RESTRICT;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -18,10 +19,12 @@ import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 })
 public class MarketAllProductsEntity {
     @ColumnInfo(name = "my_market_id")
-    public int marketId;
+    @NonNull
+    public Long marketId;
 
     @ColumnInfo(name = "my_product_id")
-    public int productId;
+    @NonNull
+    public Long productId;
 
     @ColumnInfo(name = "is_check")
     public boolean isCheck;

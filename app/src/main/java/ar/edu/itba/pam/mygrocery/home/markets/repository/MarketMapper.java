@@ -21,6 +21,18 @@ public class MarketMapper {
         return productsByMarket;
     }
 
+
+    public List<Market> toMarketModel(final List<MarketEntity> marketEntities) {
+        final List<Market> markets = new ArrayList<>();
+        for (final MarketEntity marketEntity : marketEntities) {
+            Market market = marketFromEntity(marketEntity, null);
+            if (!markets.contains(market)) {
+                markets.add(market);
+            }
+        }
+        return markets;
+    }
+
     public List<MarketEntity> toEntity(final List<Market> markets) {
         final List<MarketEntity> list = new ArrayList<>();
         for (final Market market : markets) {
@@ -44,13 +56,13 @@ public class MarketMapper {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.name, productEntity.description));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId));
             }
         }
-        return new Market(marketEntity.name, marketEntity.image, products);
+        return new Market(marketEntity.market_id, marketEntity.name, marketEntity.image, products);
     }
 
-    private Product productFromEntity(ProductEntity entity) {
-        return new Product(entity.name, entity.description);
+    private Product productFromEntity(ProductEntity productEntity) {
+        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId);
     }
 }

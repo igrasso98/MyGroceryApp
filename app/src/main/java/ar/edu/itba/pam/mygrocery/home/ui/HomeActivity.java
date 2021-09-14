@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     private ViewSwitcher viewSwitcher;
     private ProductsAdapter productsAdapter;
     private ProductsView productsView;
-//    TODO: private MarketsView marketsView;
+    //    TODO: private MarketsView marketsView;
     private BottomNavigationView navView;
 
     private HomePresenter presenter;
@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
 
         if (presenter == null) {
             final ProductMapper productMapper = new ProductMapper();
-            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), productMapper);
+            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(),MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
             presenter = new HomePresenter(this, productsRepository);
         }
     }

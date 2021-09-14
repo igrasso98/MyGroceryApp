@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ar.edu.itba.pam.mygrocery.home.products.ui.ProductsViewImpl xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="android.widget.RelativeLayout">
 
     <ar.edu.itba.pam.mygrocery.home.products.ui.ProductsListViewImpl
         android:id="@+id/products_list"
@@ -21,4 +22,4 @@
         app:tint="@color/white"
         android:layout_margin="16dp" />
 
-</ar.edu.itba.pam.mygrocery.home.products.ui.ProductsViewImpl>
+</merge>

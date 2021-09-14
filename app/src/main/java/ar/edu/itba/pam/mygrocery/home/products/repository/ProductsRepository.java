@@ -11,6 +11,8 @@ public interface ProductsRepository {
 
     Flowable<List<Category>> getProductsByCategory();
 
+    Flowable<List<Category>> getCategories();
+
     public void addProducts(List<Product> products);
 
     void addProduct(final Product product);

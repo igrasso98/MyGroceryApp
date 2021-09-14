@@ -13,7 +13,7 @@ import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 public class CategoryEntity {
     @PrimaryKey()
     @ColumnInfo(name = "category_id")
-    public int category_id;
+    public Long category_id;
 
     @ColumnInfo(name = "category_name")
     public String name;

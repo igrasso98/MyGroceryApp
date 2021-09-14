@@ -2,28 +2,44 @@ package ar.edu.itba.pam.mygrocery.home.products.repository;
 
 import java.util.List;
 
+import ar.edu.itba.pam.mygrocery.db.category.CategoryDao;
+import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryProductsDao;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryAllProducts;
+import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import io.reactivex.Flowable;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class RoomProductsRepository implements ProductsRepository {
 
-    private final CategoryProductsDao dao;
+    private final CategoryProductsDao categoryProductsDao;
+    private final CategoryDao categoryDao;
+    private final ProductDao productDao;
     private final ProductMapper mapper;
 
     private Flowable<List<Category>> categories;
 
-    public RoomProductsRepository(final CategoryProductsDao dao, final ProductMapper mapper) {
-        this.dao = dao;
+    public RoomProductsRepository(final CategoryProductsDao categoryProductsDao, final CategoryDao categoryDao, final ProductDao productDao, final ProductMapper mapper) {
+        this.categoryProductsDao = categoryProductsDao;
+        this.productDao = productDao;
+        this.categoryDao = categoryDao;
         this.mapper = mapper;
     }
+
     @Override
     public Flowable<List<Category>> getProductsByCategory() {
-        if(categories == null) {
-            Flowable<List<CategoryAllProducts>> productsList = dao.getCategoriesAndProducts();
+        if (categories == null) {
+            Flowable<List<CategoryAllProducts>> productsList = categoryProductsDao.getCategoriesAndProducts();
             categories = productsList.map(mapper::toProductsByCategoryModel);
+        }
+        return categories;
+    }
+
+    public Flowable<List<Category>> getCategories() {
+        if (categories == null) {
+            Flowable<List<CategoryEntity>> categoriesList = categoryDao.getCategories();
+            categories = categoriesList.map(mapper::toCategoryModel);
         }
         return categories;
     }
@@ -36,8 +52,8 @@ public class RoomProductsRepository implements ProductsRepository {
 
     @Override
     public void addProduct(Product product) {
-//        this.categories = null;
-//        dao.insert(mapper.toEntity(product));
+        this.categories = null;
+        productDao.insert(mapper.toEntity(product));
     }
 
     @Override

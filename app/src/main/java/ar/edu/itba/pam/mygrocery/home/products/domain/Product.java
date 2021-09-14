@@ -1,22 +1,27 @@
 package ar.edu.itba.pam.mygrocery.home.products.domain;
 
 public class Product {
+    private final Long id;
     private final String name;
     private final String description;
-    private final Category category;
+    private final Long categoryId;
 
 
-    public Product(final String name, final String description, final Category category) {
+
+    public Product(final Long id,final String name, final String description, final Long categoryId) {
+        this.id = id;
         this.name = name;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
     }
-
-    public Product(final String name, final String description) {
+    public Product(final String name, final String description, final Long categoryId) {
+        this.id = null;
         this.name = name;
         this.description = description;
-        this.category = null;
+        this.categoryId = categoryId;
     }
+
+    public Long getId() {return  id;}
 
     public String getName() {
         return name;
@@ -26,7 +31,8 @@ public class Product {
         return description;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
+
 }
