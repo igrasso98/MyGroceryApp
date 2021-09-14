@@ -1,38 +1,23 @@
 package ar.edu.itba.pam.mygrocery.home.products.repository;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import ar.edu.itba.pam.mygrocery.db.product.CategoryEntity;
-import ar.edu.itba.pam.mygrocery.db.product.ProductWithCategory;
+import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
+import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryAllProducts;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class ProductMapper {
-//    public List<Product> toModel(final List<ProductEntity> productEntities) {
-//        final List<Product> list = new ArrayList<>();
-//        for (final ProductEntity productEntity : productEntities) {
-//            list.add(new Product(productEntity.name));
-//        }
-//        return list;
-//    }
 
-    public Map<Category, List<Product>> toProductsByCategoryModel(final List<ProductWithCategory> productsWithCategoryEntities) {
-        final Map<Category, List<Product>> productsByCategory = new LinkedHashMap<>();
-        for (final ProductWithCategory productWithCategory : productsWithCategoryEntities) {
-            Category category = categoryFromEntity(productWithCategory.category);
-            if (!productsByCategory.containsKey(category)) {
-                productsByCategory.put(category, new ArrayList<>());
+    public List<Category> toProductsByCategoryModel(final List<CategoryAllProducts> categoriesAllProducts) {
+        final List<Category> productsByCategory = new ArrayList<>();
+        for (final CategoryAllProducts categoryAllProducts : categoriesAllProducts) {
+            Category category = categoryFromEntity(categoryAllProducts.category, categoryAllProducts.products);
+            if (!productsByCategory.contains(category)) {
+                productsByCategory.add(category);
             }
-            List<Product> currentProducts = productsByCategory.get(category);
-            if (currentProducts != null) {
-                Product product = productFromEntity(productWithCategory.product, category);
-                currentProducts.add(product);
-            }
-            productsByCategory.put(category, currentProducts);
         }
         return productsByCategory;
     }
@@ -56,11 +41,14 @@ public class ProductMapper {
         return productEntity;
     }
 
-    private Category categoryFromEntity(CategoryEntity entity) {
-        return new Category(entity.name, entity.image);
-    }
+    private Category categoryFromEntity(CategoryEntity entity, List<ProductEntity> productEntities) {
+        List<Product> products = new ArrayList<>();
+        if (productEntities != null) {
+            for (ProductEntity productEntity : productEntities) {
+                products.add(new Product(productEntity.name, productEntity.description));
+            }
 
-    private Product productFromEntity(ProductEntity entity, Category category) {
-        return new Product(entity.name, entity.description, category);
+        }
+        return new Category(entity.name, entity.image, products);
     }
 }

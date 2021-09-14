@@ -2,16 +2,15 @@ package ar.edu.itba.pam.mygrocery.home;
 
 import android.app.Application;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.itba.pam.mygrocery.db.product.CategoryEntity;
-import ar.edu.itba.pam.mygrocery.db.product.ProductDb;
+import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
+import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
+import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import io.reactivex.Completable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -20,8 +19,9 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Completable.fromAction(() -> {
-            createCategoryDataSet();
-            ProductDb.getInstance(getApplicationContext()).productDao().insertAll(createDataSet());
+//            createCategoryDataSet();
+//            createMarketsDataSet();
+//            MyGroceryDb.getInstance(getApplicationContext()).productDao().insertAll(createProductDataSet());
         }).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe();
     }
 
@@ -30,11 +30,11 @@ public class MainApplication extends Application {
             final CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.category_id = i;
             categoryEntity.name = "CATEGORY " + i;
-            ProductDb.getInstance(getApplicationContext()).productDao().insertCategory(categoryEntity);
+            MyGroceryDb.getInstance(getApplicationContext()).categoryDao().insert(categoryEntity);
         }
     }
 
-    private List<ProductEntity> createDataSet() {
+    private List<ProductEntity> createProductDataSet() {
         final List<ProductEntity> list = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -43,8 +43,17 @@ public class MainApplication extends Application {
             productEntity.categoryId = i % 3;
             list.add(productEntity);
         }
-
         return list;
+    }
+
+    private void createMarketsDataSet() {
+        for (int i = 0; i < 3; i++) {
+            final MarketEntity marketEntity = new MarketEntity();
+            marketEntity.market_id = i;
+            marketEntity.name = "MARKET " + i;
+            MyGroceryDb.getInstance(getApplicationContext()).marketDao().insert(marketEntity);
+        }
+
     }
 
 //    public byte[] ImageToByteArray() {

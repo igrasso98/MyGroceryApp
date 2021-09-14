@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import ar.edu.itba.pam.mygrocery.R;
-import ar.edu.itba.pam.mygrocery.db.product.ProductDb;
+import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
 import ar.edu.itba.pam.mygrocery.home.products.OnProductClickedListener;
 import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
 
         if (presenter == null) {
             final ProductMapper productMapper = new ProductMapper();
-            final ProductsRepository productsRepository = new RoomProductsRepository(ProductDb.getInstance(getApplicationContext()).productDao(), productMapper);
+            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), productMapper);
             presenter = new HomePresenter(this, productsRepository);
         }
     }
@@ -111,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     @Override
-    public void bindProducts(Map<Category,List<Product>> model) {
+    public void bindProducts(List<Category> model) {
         productsAdapter.setDataset(model);
     }
 

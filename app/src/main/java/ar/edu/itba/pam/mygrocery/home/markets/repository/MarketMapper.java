@@ -1,0 +1,56 @@
+package ar.edu.itba.pam.mygrocery.home.markets.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
+import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+
+public class MarketMapper {
+    public List<Market> toProductsByMarketModel(final List<MarketAllProducts> marketsAllProducts) {
+        final List<Market> productsByMarket = new ArrayList<>();
+        for (final MarketAllProducts marketAllProducts : marketsAllProducts) {
+            Market market = marketFromEntity(marketAllProducts.market, marketAllProducts.products);
+            if (!productsByMarket.contains(market)) {
+                productsByMarket.add(market);
+            }
+        }
+        return productsByMarket;
+    }
+
+    public List<MarketEntity> toEntity(final List<Market> markets) {
+        final List<MarketEntity> list = new ArrayList<>();
+        for (final Market market : markets) {
+            final MarketEntity marketEntity = toEntity(market);
+            list.add(marketEntity);
+        }
+        return list;
+    }
+
+    public MarketEntity toEntity(Market market) {
+        return mapToEntity(market);
+    }
+
+    private MarketEntity mapToEntity(Market market) {
+        final MarketEntity marketEntity = new MarketEntity();
+        marketEntity.name = market.getName();
+        return marketEntity;
+    }
+
+    private Market marketFromEntity(MarketEntity marketEntity, List<ProductEntity> productEntities) {
+        List<Product> products = new ArrayList<>();
+        if (productEntities != null) {
+            for (ProductEntity productEntity : productEntities) {
+                products.add(new Product(productEntity.name, productEntity.description));
+            }
+        }
+        return new Market(marketEntity.name, marketEntity.image, products);
+    }
+
+    private Product productFromEntity(ProductEntity entity) {
+        return new Product(entity.name, entity.description);
+    }
+}

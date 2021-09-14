@@ -8,13 +8,12 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import io.reactivex.Flowable;
 
 public interface ProductsRepository {
-    Flowable<List<Product>> getProducts();
 
-    Flowable<Map<Category,List<Product>>> getProductsByCategory();
+    Flowable<List<Category>> getProductsByCategory();
 
     public void addProducts(List<Product> products);
 
-    void addProduct(final  Product product);
+    void addProduct(final Product product);
 
     void removeProduct(final Product product);
 

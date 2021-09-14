@@ -9,13 +9,12 @@ import io.reactivex.Flowable;
 
 public interface MarketsRepository {
 
-    Flowable<Map<Market,List<Product>>> getProductsByMarket();
+    Flowable<List<Market>> getProductsByMarket();
 
-    public void addProducts(List<Product> products);
 
-    void addProduct(final  Product product);
+    void addProduct(final Market market, final Product product);
 
-    void removeProduct(final Product product);
+    void removeProduct(final Market market, final Product product);
 
-    void buyProduct(final Product product);
+    void buyProduct(final Market market, final Product product);
 }

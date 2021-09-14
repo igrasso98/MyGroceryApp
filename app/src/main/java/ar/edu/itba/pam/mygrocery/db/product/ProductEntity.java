@@ -7,11 +7,14 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "products", foreignKeys = @ForeignKey(entity = CategoryEntity.class, parentColumns = "category_id", childColumns = "my_category_id", onDelete = CASCADE))
+import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
+
+//@Entity(tableName = "products", foreignKeys = @ForeignKey(entity = CategoryEntity.class, parentColumns = "category_id", childColumns = "my_category_id", onDelete = CASCADE))
+@Entity(tableName = "products")
 public class ProductEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")
-    public int product_id;
+    public int productId;
 
     @ColumnInfo(name = "my_category_id")
     public int categoryId;

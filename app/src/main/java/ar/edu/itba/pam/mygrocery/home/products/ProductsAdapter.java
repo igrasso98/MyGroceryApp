@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +18,16 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
 
-    private final Map<Category, List<Product>> dataset;
+    private final List<Category> dataset;
 
     public ProductsAdapter() {
-        dataset = new LinkedHashMap<>();
+        dataset = new ArrayList<>();
     }
 
-    public void setDataset(final Map<Category, List<Product>> newDataset) {
+    public void setDataset(final List<Category> newDataset) {
         dataset.clear();
         if (newDataset != null) {
-            dataset.putAll(newDataset);
+            dataset.addAll(newDataset);
         }
         notifyDataSetChanged();
     }
@@ -41,10 +42,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
         ProductAdapter productAdapter = new ProductAdapter();
-        productAdapter.setDataset((List<Product>) dataset.values().toArray()[position]);
+        productAdapter.setDataset(dataset.get(position).getProducts());
         holder.productsByCategory.setAdapter(productAdapter);
-        Category category = (Category) dataset.keySet().toArray()[position];
-        holder.bind(category, dataset.get(category).size());
+        holder.bind(dataset.get(position));
     }
 
     @Override

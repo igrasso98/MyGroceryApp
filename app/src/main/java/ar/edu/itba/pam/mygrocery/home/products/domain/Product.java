@@ -12,6 +12,12 @@ public class Product {
         this.category = category;
     }
 
+    public Product(final String name, final String description) {
+        this.name = name;
+        this.description = description;
+        this.category = null;
+    }
+
     public String getName() {
         return name;
     }

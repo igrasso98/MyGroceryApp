@@ -45,7 +45,7 @@ public class HomePresenter {
         disposable = productsRepository.getProductsByCategory().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onProductsReceived);
     }
 
-    private void onProductsReceived(final Map<Category,List<Product>> model) {
+    private void onProductsReceived(final List<Category> model) {
         if (view.get() != null) {
             view.get().bindProducts(model);
         }

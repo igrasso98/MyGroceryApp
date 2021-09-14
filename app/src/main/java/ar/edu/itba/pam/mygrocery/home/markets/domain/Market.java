@@ -1,13 +1,20 @@
 package ar.edu.itba.pam.mygrocery.home.markets.domain;
 
+import java.util.List;
+
+import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+
 public class Market {
     private final String name;
 
     private final byte[] image;
 
-    public Market(final String name, final byte[] image) {
+    private final List<Product> products;
+
+    public Market(final String name, final byte[] image, final List<Product> products) {
         this.name = name;
         this.image = image;
+        this.products = products;
     }
 
     public String getName() {
@@ -16,6 +23,10 @@ public class Market {
 
     public byte[] getImage() {
         return image;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     @Override

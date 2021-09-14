@@ -1,8 +1,13 @@
-package ar.edu.itba.pam.mygrocery.db.product;
+package ar.edu.itba.pam.mygrocery.db.category;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import java.util.List;
+
+import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 
 @Entity(tableName = "categories")
 public class CategoryEntity {
@@ -15,4 +20,5 @@ public class CategoryEntity {
 
     @ColumnInfo(name = "category_image", typeAffinity = ColumnInfo.BLOB)
     public byte[] image;
+
 }

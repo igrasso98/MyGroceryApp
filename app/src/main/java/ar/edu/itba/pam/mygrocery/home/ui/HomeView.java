@@ -14,6 +14,6 @@ public interface HomeView {
 
     void showMarkets();
 
-    void bindProducts(final Map<Category,List<Product>> model);
+    void bindProducts(final List<Category> model);
 
 }
