@@ -19,17 +19,21 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Completable.fromAction(() -> {
-//            createCategoryDataSet();
-//            createMarketsDataSet();
-//            MyGroceryDb.getInstance(getApplicationContext()).productDao().insertAll(createProductDataSet());
+            createCategoryDataSet();
+            createMarketsDataSet();
         }).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe();
     }
 
     private void createCategoryDataSet() {
+        final List<String> categories = new ArrayList<String>() {{
+            add("CARNES");
+            add("VERDULERIA");
+            add("CONGELADOS");
+        }};
         for (int i = 0; i < 3; i++) {
             final CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.category_id = Long.valueOf(i);
-            categoryEntity.name = "CATEGORY " + i;
+            categoryEntity.name = categories.get(i);
             MyGroceryDb.getInstance(getApplicationContext()).categoryDao().insert(categoryEntity);
         }
     }
@@ -47,10 +51,15 @@ public class MainApplication extends Application {
     }
 
     private void createMarketsDataSet() {
+        final List<String> markets = new ArrayList<String>() {{
+            add("JUMBO");
+            add("COTO");
+            add("CARREFOUR");
+        }};
         for (int i = 0; i < 3; i++) {
             final MarketEntity marketEntity = new MarketEntity();
             marketEntity.market_id = Long.valueOf(i);
-            marketEntity.name = "MARKET " + i;
+            marketEntity.name = markets.get(i);
             MyGroceryDb.getInstance(getApplicationContext()).marketDao().insert(marketEntity);
         }
 

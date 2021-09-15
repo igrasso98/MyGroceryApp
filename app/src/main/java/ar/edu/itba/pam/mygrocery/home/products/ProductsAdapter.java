@@ -19,6 +19,7 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
 
     private final List<Category> dataset;
+    private OnBuyProductClickedListener listener;
 
     public ProductsAdapter() {
         dataset = new ArrayList<>();
@@ -32,6 +33,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void setOnBuyProductClickedListener(OnBuyProductClickedListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +47,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
         ProductAdapter productAdapter = new ProductAdapter();
+        productAdapter.setOnProductClickedListener(listener);
         productAdapter.setDataset(dataset.get(position).getProducts());
         holder.productsByCategory.setAdapter(productAdapter);
         holder.bind(dataset.get(position));

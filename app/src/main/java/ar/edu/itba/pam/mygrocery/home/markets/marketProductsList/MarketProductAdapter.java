@@ -1,4 +1,4 @@
-package ar.edu.itba.pam.mygrocery.home.products;
+package ar.edu.itba.pam.mygrocery.home.markets.marketProductsList;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
+import ar.edu.itba.pam.mygrocery.home.products.ProductViewHolder;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
-//RESPONSABLE DE CONSTRUIR VIEWHOLDERS Y MODELARLOS
-public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
+public class MarketProductAdapter extends RecyclerView.Adapter<MarketProductViewHolder> {
 
     private final List<Product> dataset;
-    private OnBuyProductClickedListener listener;
 
-    public ProductAdapter() {
+    public MarketProductAdapter() {
         dataset = new ArrayList<>();
-    }
-
-    public void setOnProductClickedListener(final OnBuyProductClickedListener listener) {
-        this.listener = listener;
     }
 
     public void setDataset(final List<Product> newDataset) {
@@ -37,15 +32,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_viewholder, parent, false);
-        return new ProductViewHolder(view);
+    public MarketProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.market_product_viewholder, parent, false);
+        return new MarketProductViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MarketProductViewHolder holder, int position) {
         holder.bind(dataset.get(position));
-        holder.setOnClickListener(listener);
     }
 
     @Override

@@ -10,26 +10,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
-import java.util.Map;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
 import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
+import ar.edu.itba.pam.mygrocery.home.markets.OnMarketClickedListener;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.ui.MarketsView;
-import ar.edu.itba.pam.mygrocery.home.products.OnProductClickedListener;
+import ar.edu.itba.pam.mygrocery.home.products.OnBuyProductClickedListener;
 import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
-import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.repository.RoomProductsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.ui.ProductsView;
 
-public class HomeActivity extends AppCompatActivity implements HomeView, OnProductClickedListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, OnBuyProductClickedListener, OnMarketClickedListener {
 
     private static final int PRODUCTS = 0;
     private static final int MARKETS = 1;
@@ -60,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
             final ProductMapper productMapper = new ProductMapper();
             final MarketMapper marketMapper = new MarketMapper();
             final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(),MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(),marketMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
             presenter = new HomePresenter(this, productsRepository, marketsRepository);
         }
     }
@@ -75,12 +74,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     private void setUpProductsView() {
         productsView = findViewById(R.id.products_activity);
         productsAdapter = new ProductsAdapter();
+        productsAdapter.setOnBuyProductClickedListener(this);
         productsView.bind(productsAdapter);
     }
 
     private void setUpMarketsView() {
         marketsView = findViewById(R.id.markets_activity);
         marketAdapter = new MarketAdapter();
+        marketAdapter.setOnMarketClickedListener(this);
         marketsView.bind(marketAdapter);
     }
 
@@ -113,8 +114,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     @Override
-    public void showProductDetails(String id) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("pam://detail/demo")));
+    public void showMarketProducts(Long marketId) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("pam://markets/market"));
+        intent.putExtra("market_id", marketId);
+        startActivity(intent);
     }
 
     @Override
@@ -145,7 +148,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     @Override
-    public void onClicked(final String id) {
-        presenter.onProductClicked(id);
+    public void onMarketClicked(final Long marketId) {
+        presenter.onMarketClicked(marketId);
+    }
+
+    @Override
+    public void onBuyProductClicked(Long productId, Long marketId) {
+        presenter.onBuyProductClicked(productId, marketId);
     }
 }

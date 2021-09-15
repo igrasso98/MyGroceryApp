@@ -61,13 +61,13 @@ public class MarketMapper {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId));
             }
         }
         return new Market(marketEntity.market_id, marketEntity.name, marketEntity.image, products);
     }
 
     private Product productFromEntity(ProductEntity productEntity) {
-        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId);
+        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId);
     }
 }

@@ -28,10 +28,14 @@ public class HomePresenter {
         this.marketsRepository = marketsRepository;
     }
 
-    public void onProductClicked(final String id) {
+    public void onMarketClicked(final Long marketId) {
         if (view.get() != null) {
-            view.get().showProductDetails(id);
+            view.get().showMarketProducts(marketId);
         }
+    }
+
+    public void onBuyProductClicked(final Long productId, final Long marketId) {
+        marketsRepository.buyProduct(productId, marketId);
     }
 
     public void onProductsClicked() {

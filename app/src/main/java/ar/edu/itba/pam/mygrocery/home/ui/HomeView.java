@@ -11,12 +11,12 @@ public interface HomeView {
 
     void showProducts();
 
-    void showProductDetails(String id);
+    void showMarketProducts(Long marketId);
 
     void showMarkets();
 
     void bindProducts(final List<Category> model);
 
-    public void bindMarkets(List<Market> model);
+    void bindMarkets(List<Market> model);
 
 }

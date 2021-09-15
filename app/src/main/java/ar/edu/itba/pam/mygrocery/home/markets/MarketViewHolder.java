@@ -24,7 +24,7 @@ public class MarketViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onClicked(model.getName());
+                listener.onMarketClicked(model.getId());
             }
         });
     }

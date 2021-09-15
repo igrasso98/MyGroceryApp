@@ -10,24 +10,24 @@ public class OnAddProductConfirmlistener implements View.OnClickListener {
     private String name;
     private String description;
     private Long categoryId;
-    private Market market;
+    private Long marketId;
     private final AddProductPresenter presenter;
 
     public OnAddProductConfirmlistener(AddProductPresenter presenter) {
         this.presenter = presenter;
     }
 
-    public void onConfirm(View view, String name, String description, Long categoryId, Market market) {
+    public void onConfirm(View view, String name, String description, Long categoryId, Long marketId) {
         this.name = name;
         this.description = description;
         this.categoryId = categoryId;
-        this.market = market;
+        this.marketId = marketId;
 
         onClick(view);
     }
 
     @Override
     public void onClick(View view) {
-        presenter.onAddProductConfirm(name, description, categoryId, market);
+        presenter.onAddProductConfirm(name, description, categoryId, marketId);
     }
 }

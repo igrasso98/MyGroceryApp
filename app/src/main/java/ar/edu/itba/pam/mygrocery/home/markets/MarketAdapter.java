@@ -12,12 +12,6 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
-import ar.edu.itba.pam.mygrocery.home.products.OnProductClickedListener;
-import ar.edu.itba.pam.mygrocery.home.products.ProductAdapter;
-import ar.edu.itba.pam.mygrocery.home.products.ProductViewHolder;
-import ar.edu.itba.pam.mygrocery.home.products.ProductsViewHolder;
-import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
-import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class MarketAdapter extends RecyclerView.Adapter<MarketViewHolder> {
 

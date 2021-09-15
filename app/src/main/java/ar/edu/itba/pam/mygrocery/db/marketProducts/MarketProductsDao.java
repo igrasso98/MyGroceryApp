@@ -19,11 +19,8 @@ public interface MarketProductsDao {
 
 
     @Insert
-    void insert(final MarketAllProductsEntity categoryProductsEntity);
-
-    @Insert
-    void insertAll(final List<MarketAllProductsEntity> categoryProductsEntity);
+    void insert(final MarketAllProductsEntity marketAllProductsEntity);
 
     @Delete
-    void delete(final MarketAllProductsEntity categoryProductsEntity);
+    void delete(final MarketAllProductsEntity marketAllProductsEntity);
 }

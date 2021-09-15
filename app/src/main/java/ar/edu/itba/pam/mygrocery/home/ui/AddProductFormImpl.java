@@ -68,12 +68,11 @@ public class AddProductFormImpl extends RelativeLayout implements AddProductForm
         categoriesSpinner.setAdapter(categoryArrayAdapter);
 
         confirmBtn.setOnClickListener(v -> {
-                    AsyncTask.execute(() -> onAddProductConfirmlistener.onConfirm(v, nameEditText.getText().toString(), descriptionEditText.getText().toString(), ((Category) categoriesSpinner.getSelectedItem()).getId(), (Market) marketsSpinner.getSelectedItem()));
+                    AsyncTask.execute(() -> onAddProductConfirmlistener.onConfirm(v, nameEditText.getText().toString(), descriptionEditText.getText().toString(), ((Category) categoriesSpinner.getSelectedItem()).getId(), ((Market) marketsSpinner.getSelectedItem()).getId()));
                     cancelBtn.performClick();
                 }
         );
 
         cancelBtn.setOnClickListener(onAddProductCancelListener);
-        ;
     }
 }

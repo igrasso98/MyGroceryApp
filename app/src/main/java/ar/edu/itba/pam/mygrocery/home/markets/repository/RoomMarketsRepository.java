@@ -5,6 +5,7 @@ import java.util.List;
 import ar.edu.itba.pam.mygrocery.db.market.MarketDao;
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProductsDao;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
@@ -61,7 +62,12 @@ public class RoomMarketsRepository implements MarketsRepository {
     }
 
     @Override
-    public void buyProduct(Market market, Product product) {
+    public void buyProduct(Long productId, Long markerId) {
+        MarketAllProductsEntity marketAllProductsEntity = new MarketAllProductsEntity();
+        marketAllProductsEntity.productId = productId;
+        marketAllProductsEntity.marketId = markerId;
+        marketAllProductsEntity.isCheck = false;
+        marketProductsDao.insert(marketAllProductsEntity);
 
     }
 }

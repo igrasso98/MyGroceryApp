@@ -19,5 +19,5 @@ public interface MarketsRepository {
 
     void removeProduct(final Market market, final Product product);
 
-    void buyProduct(final Market market, final Product product);
+    void buyProduct(final Long productId, final Long marketId);
 }

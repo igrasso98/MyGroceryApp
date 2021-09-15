@@ -50,8 +50,8 @@ public class AddProductPresenter {
         marketsDisposable.dispose();
     }
 
-    public void onAddProductConfirm(String name, String description, Long categoryId, Market market) {
-        productsRepository.addProduct(new Product(name, description, categoryId));
+    public void onAddProductConfirm(String name, String description, Long categoryId, Long marketId) {
+        productsRepository.addProduct(new Product(name, description, categoryId, marketId));
     }
 
 }

@@ -19,6 +19,9 @@ public class ProductEntity {
     @ColumnInfo(name = "my_category_id")
     public Long categoryId;
 
+    @ColumnInfo(name = "my_market_id")
+    public Long marketId;
+
     @ColumnInfo(name = "product_name")
     public String name;
 

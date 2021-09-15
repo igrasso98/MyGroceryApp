@@ -53,6 +53,7 @@ public class ProductMapper {
         productEntity.name = product.getName();
         productEntity.description = product.getDescription();
         productEntity.categoryId = product.getCategoryId();
+        productEntity.marketId = product.getMarketId();
         return productEntity;
     }
 
@@ -60,7 +61,7 @@ public class ProductMapper {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description,categoryEntity.category_id));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, categoryEntity.category_id, productEntity.marketId));
             }
 
         }
