@@ -1,11 +1,8 @@
-package ar.edu.itba.pam.mygrocery.home.ui;
+package ar.edu.itba.pam.mygrocery.home.products.addProduct;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,17 +16,16 @@ import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
-import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
+import ar.edu.itba.pam.mygrocery.home.products.addProduct.ui.AddProductFormView;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.repository.RoomProductsRepository;
+import ar.edu.itba.pam.mygrocery.home.ui.HomeActivity;
 
-public class AddProductActivity extends AppCompatActivity implements AddProductView {
+public class AddProductActivity extends AppCompatActivity implements AddProductView, OnAddProductConfirmListener, OnAddProductCancelListener {
     private AddProductPresenter presenter;
     private AddProductFormView addProductFormView;
-    private OnAddProductConfirmlistener onAddProductConfirmlistener;
-    private OnAddProductCancelListener onAddProductCancelListener;
 
 
     @Override
@@ -50,14 +46,6 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
             final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
             final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
             presenter = new AddProductPresenter(this, productsRepository, marketsRepository);
-            onAddProductConfirmlistener = new OnAddProductConfirmlistener(presenter);
-            onAddProductCancelListener = new OnAddProductCancelListener(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(AddProductActivity.this, HomeActivity.class));
-                }
-            });
-
         }
     }
 
@@ -65,12 +53,14 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
 
 
         addProductFormView = findViewById(R.id.add_product_form);
-        addProductFormView.bind(new ArrayList<>(), new ArrayList<>(), onAddProductConfirmlistener, onAddProductCancelListener);
+        addProductFormView.setOnAddProductConfirmListener(this);
+        addProductFormView.setOnAddProductCancelListener(this);
+        addProductFormView.bind(new ArrayList<>(), new ArrayList<>());
     }
 
     @Override
     public void bind(List<Market> markets, List<Category> categories) {
-        addProductFormView.bind(markets, categories, onAddProductConfirmlistener, onAddProductCancelListener);
+        addProductFormView.bind(markets, categories);
     }
 
     @Override
@@ -83,5 +73,15 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
     protected void onStop() {
         super.onStop();
         presenter.onViewDetached();
+    }
+
+    @Override
+    public void onCancel() {
+        startActivity(new Intent(AddProductActivity.this, HomeActivity.class));
+    }
+
+    @Override
+    public void onConfirm(String name, String description, Long categoryId, Long marketId) {
+        presenter.onAddProductConfirm(name, description, categoryId, marketId);
     }
 }

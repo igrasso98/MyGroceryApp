@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.ui.AddProductActivity"
+    tools:context=".home.products.addProduct.t.AddProductActivity"
     android:padding="15dp">
 
-    <ar.edu.itba.pam.mygrocery.home.ui.AddProductFormImpl
+    <ar.edu.itba.pam.mygrocery.home.products.addProduct.ui.AddProductFormImpl
         android:id="@+id/add_product_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

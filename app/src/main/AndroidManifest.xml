@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.ui.AddProductActivity"
+            android:name=".home.products.addProduct.AddProductActivity"
             android:theme="@style/Theme.MyGrocery"
             android:label="Agregar Producto"
             android:exported="true">

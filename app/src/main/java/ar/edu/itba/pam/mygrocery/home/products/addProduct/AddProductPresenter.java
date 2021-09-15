@@ -1,8 +1,7 @@
-package ar.edu.itba.pam.mygrocery.home.ui;
+package ar.edu.itba.pam.mygrocery.home.products.addProduct;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Map;
 
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;

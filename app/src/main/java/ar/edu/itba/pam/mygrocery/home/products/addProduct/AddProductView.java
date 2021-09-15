@@ -1,4 +1,4 @@
-package ar.edu.itba.pam.mygrocery.home.ui;
+package ar.edu.itba.pam.mygrocery.home.products.addProduct;
 
 import java.util.List;
 
