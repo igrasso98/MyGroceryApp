@@ -14,6 +14,12 @@ import java.util.Map;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
+import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
+import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
+import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.markets.ui.MarketsView;
 import ar.edu.itba.pam.mygrocery.home.products.OnProductClickedListener;
 import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
@@ -30,8 +36,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
 
     private ViewSwitcher viewSwitcher;
     private ProductsAdapter productsAdapter;
+    private MarketAdapter marketAdapter;
     private ProductsView productsView;
-    //    TODO: private MarketsView marketsView;
+    private MarketsView marketsView;
     private BottomNavigationView navView;
 
     private HomePresenter presenter;
@@ -51,8 +58,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
 
         if (presenter == null) {
             final ProductMapper productMapper = new ProductMapper();
-            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(),MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
-            presenter = new HomePresenter(this, productsRepository);
+            final MarketMapper marketMapper = new MarketMapper();
+            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(),MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(),marketMapper);
+            presenter = new HomePresenter(this, productsRepository, marketsRepository);
         }
     }
 
@@ -70,6 +79,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     }
 
     private void setUpMarketsView() {
+        marketsView = findViewById(R.id.markets_activity);
+        marketAdapter = new MarketAdapter();
+        marketsView.bind(marketAdapter);
     }
 
     @Override
@@ -113,6 +125,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnProdu
     @Override
     public void bindProducts(List<Category> model) {
         productsAdapter.setDataset(model);
+    }
+
+    @Override
+    public void bindMarkets(List<Market> model) {
+        marketAdapter.setDataset(model);
     }
 
     @Override

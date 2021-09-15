@@ -47,8 +47,8 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
         if (presenter == null) {
             final ProductMapper productMapper = new ProductMapper();
             final MarketMapper marketMapper = new MarketMapper();
-            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(),MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), marketMapper);
+            final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
             presenter = new AddProductPresenter(this, productsRepository, marketsRepository);
             onAddProductConfirmlistener = new OnAddProductConfirmlistener(presenter);
             onAddProductCancelListener = new OnAddProductCancelListener(new Runnable() {

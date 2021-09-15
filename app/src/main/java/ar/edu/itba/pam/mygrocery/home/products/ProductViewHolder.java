@@ -19,11 +19,13 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final Product model) {
-        final TextView textView = itemView.findViewById(R.id.product_name);
-        textView.setText(model.getName());
+        final TextView productName = itemView.findViewById(R.id.product_name);
+        productName.setText(model.getName());
+        final TextView productDescription = itemView.findViewById(R.id.product_description);
+        productDescription.setText(model.getDescription());
 
         itemView.setOnClickListener(v -> {
-            if(listener != null) {
+            if (listener != null) {
                 listener.onClicked(model.getName());
             }
         });

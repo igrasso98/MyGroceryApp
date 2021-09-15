@@ -14,6 +14,10 @@ public interface MarketProductsDao {
     @Query("SELECT * FROM markets")
     Flowable<List<MarketAllProducts>> getMarketsAndProducts();
 
+    @Query("SELECT * FROM markets WHERE market_id = :marketId")
+    Flowable<MarketAllProducts> getMarketAndProducts(final Long marketId);
+
+
     @Insert
     void insert(final MarketAllProductsEntity categoryProductsEntity);
 

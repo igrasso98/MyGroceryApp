@@ -10,15 +10,20 @@ import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class MarketMapper {
-    public List<Market> toProductsByMarketModel(final List<MarketAllProducts> marketsAllProducts) {
+    public List<Market> toProductsByMarketsModel(final List<MarketAllProducts> marketsAllProducts) {
         final List<Market> productsByMarket = new ArrayList<>();
         for (final MarketAllProducts marketAllProducts : marketsAllProducts) {
-            Market market = marketFromEntity(marketAllProducts.market, marketAllProducts.products);
+            Market market = toProductsByMarketModel(marketAllProducts);
             if (!productsByMarket.contains(market)) {
                 productsByMarket.add(market);
             }
         }
         return productsByMarket;
+    }
+
+    public Market toProductsByMarketModel(final MarketAllProducts marketAllProducts) {
+        Market market = marketFromEntity(marketAllProducts.market, marketAllProducts.products);
+        return market;
     }
 
 

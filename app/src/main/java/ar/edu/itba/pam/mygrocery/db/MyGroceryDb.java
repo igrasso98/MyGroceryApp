@@ -12,6 +12,7 @@ import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryProductsDao;
 import ar.edu.itba.pam.mygrocery.db.market.MarketDao;
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProductsDao;
 import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 
@@ -24,6 +25,7 @@ abstract public class MyGroceryDb extends RoomDatabase {
     public abstract CategoryDao categoryDao();
     public abstract MarketDao marketDao();
     public abstract CategoryProductsDao categoryProductsDao();
+    public abstract MarketProductsDao marketProductsDao();
 
     public static synchronized MyGroceryDb getInstance(final Context context) {
         if (instance == null) {

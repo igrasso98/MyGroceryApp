@@ -18,6 +18,7 @@ public class ProductsViewHolder extends RecyclerView.ViewHolder {
     public RecyclerView productsByCategory;
 
 
+
     public ProductsViewHolder(@NonNull View itemView) {
         super(itemView);
         productsByCategory = itemView.findViewById(R.id.products_by_category);
