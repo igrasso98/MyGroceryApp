@@ -7,17 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 
 @Entity(tableName = "marketLists",
-        primaryKeys = {"my_market_id", "my_product_id"},
         foreignKeys = {
         @ForeignKey(entity = MarketEntity.class, parentColumns = "market_id", childColumns = "my_market_id", onDelete = RESTRICT, onUpdate = CASCADE),
         @ForeignKey(entity = ProductEntity.class, parentColumns = "product_id", childColumns = "my_product_id", onDelete = RESTRICT, onUpdate = CASCADE)
 })
 public class MarketAllProductsEntity {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "market_product_id")
+    public Long marketProductId;
+
     @ColumnInfo(name = "my_market_id")
     @NonNull
     public Long marketId;
