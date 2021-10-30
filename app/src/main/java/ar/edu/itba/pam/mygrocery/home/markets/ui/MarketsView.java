@@ -1,8 +1,13 @@
 package ar.edu.itba.pam.mygrocery.home.markets.ui;
 
-import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
+import java.util.List;
+
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 
 public interface MarketsView {
-    void bind(MarketAdapter marketAdapter);
 
+    void showMarketProducts(Long marketId);
+
+    void bindMarkets(List<Market> model);
 }

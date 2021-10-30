@@ -1,8 +1,6 @@
 package ar.edu.itba.pam.mygrocery.home.products.addProduct;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +19,6 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.repository.RoomProductsRepository;
-import ar.edu.itba.pam.mygrocery.home.ui.HomeActivity;
 
 public class AddProductActivity extends AppCompatActivity implements AddProductView, OnAddProductConfirmListener, OnAddProductCancelListener {
     private AddProductPresenter presenter;
@@ -50,8 +47,6 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
     }
 
     private void setUpView() {
-
-
         addProductFormView = findViewById(R.id.add_product_form);
         addProductFormView.setOnAddProductConfirmListener(this);
         addProductFormView.setOnAddProductCancelListener(this);
@@ -77,7 +72,7 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
 
     @Override
     public void onCancel() {
-        startActivity(new Intent(AddProductActivity.this, HomeActivity.class));
+        finish();
     }
 
     @Override
