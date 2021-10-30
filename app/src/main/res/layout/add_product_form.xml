@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/enter_product_name"
             android:layout_marginTop="25dp"
-            android:hint="Descripción" />
+            android:hint="Marca, modelo, etc" />
 
         <TextView
             android:id="@+id/choose_category_title"

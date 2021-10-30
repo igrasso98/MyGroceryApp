@@ -23,9 +23,9 @@
         </activity>
         <activity
             android:name=".home.products.addProduct.AddProductActivity"
-            android:theme="@style/Theme.MyGrocery"
+            android:exported="true"
             android:label="Agregar Producto"
-            android:exported="true">
+            android:theme="@style/Theme.MyGrocery">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -39,9 +39,24 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".home.markets.ui.MarketsActivity"
+            android:exported="true"
+            android:label="Mis Mercados"
+            android:theme="@style/Theme.MyGrocery">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="pam" />
+                <data android:host="markets" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".home.markets.marketProductsList.MarketProductsActivity"
-            android:theme="@style/Theme.MyGrocery"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MyGrocery">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -55,5 +70,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

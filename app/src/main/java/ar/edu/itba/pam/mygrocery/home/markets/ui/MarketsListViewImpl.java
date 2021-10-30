@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
 
-public class MarketsViewImpl extends RecyclerView implements  MarketsView{
-    public MarketsViewImpl(@NonNull Context context) {
+public class MarketsListViewImpl extends RecyclerView implements MarketsListView {
+    public MarketsListViewImpl(@NonNull Context context) {
         super(context);
     }
 
-    public MarketsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MarketsListViewImpl(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MarketsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MarketsListViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
