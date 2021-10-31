@@ -27,6 +27,8 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
         setContentView(R.layout.markets_activity);
         createPresenter();
         setUpView();
@@ -87,5 +89,11 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
     @Override
     public void onMarketClicked(final Long marketId) {
         presenter.onMarketClicked(marketId);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

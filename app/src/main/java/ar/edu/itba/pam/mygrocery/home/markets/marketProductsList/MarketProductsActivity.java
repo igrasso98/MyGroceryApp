@@ -23,6 +23,8 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
         setContentView(R.layout.market_products_list_activity);
         createPresenter();
 
@@ -66,5 +68,11 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     protected void onStop() {
         super.onStop();
         presenter.onViewDetached();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
