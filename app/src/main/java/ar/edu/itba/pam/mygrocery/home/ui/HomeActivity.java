@@ -70,6 +70,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnBuyPr
     @Override
     public void bindProducts(List<Category> model) {
         productsAdapter.setDataset(model);
+        productsView.bind(productsAdapter);
+
     }
 
     @Override

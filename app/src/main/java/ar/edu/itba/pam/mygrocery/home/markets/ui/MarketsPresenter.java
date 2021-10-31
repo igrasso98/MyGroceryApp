@@ -1,10 +1,12 @@
 package ar.edu.itba.pam.mygrocery.home.markets.ui;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -33,8 +35,19 @@ public class MarketsPresenter {
 
     private void onMarketsReceived(final List<Market> model) {
         if (view.get() != null) {
-            view.get().bindMarkets(model);
+            final List<Market> markets = removeEmptyMarkets(model);
+            view.get().bindMarkets(markets);
         }
+    }
+
+    private List<Market> removeEmptyMarkets(List<Market> model) {
+        List<Market> markets = new ArrayList<>();
+        for (Market market : model) {
+            if (market.getProducts().size() > 0) {
+                markets.add(market);
+            }
+        }
+        return markets;
     }
 
     public void onViewDetached() {
