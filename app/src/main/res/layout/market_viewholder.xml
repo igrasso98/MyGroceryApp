@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools='http://schemas.android.com/tools'
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="72dp"
     android:layout_gravity="center"
     android:background="@drawable/tile_background"
     android:gravity="start"
@@ -13,7 +13,7 @@
     <ImageView
         android:id="@+id/market_image"
         android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_height="match_parent"
         android:src="@drawable/ic_baseline_image_24" />
 
     <LinearLayout
@@ -41,8 +41,8 @@
     <ImageView
         android:id="@+id/shop_product"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:paddingRight="10dp"
+        android:layout_height="24dp"
+        android:paddingRight="12dp"
         android:scaleType="fitEnd"
         android:layout_gravity="center|end"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"

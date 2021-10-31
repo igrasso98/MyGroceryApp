@@ -8,6 +8,6 @@
     <ar.edu.itba.pam.mygrocery.home.markets.ui.MarketsListViewImpl
         android:id="@+id/markets_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
