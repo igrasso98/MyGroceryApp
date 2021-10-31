@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home.products.addProduct.AddProductActivity"
-    android:padding="15dp">
+    android:padding="16dp">
 
     <ar.edu.itba.pam.mygrocery.home.products.addProduct.ui.AddProductFormImpl
         android:id="@+id/add_product_form"
