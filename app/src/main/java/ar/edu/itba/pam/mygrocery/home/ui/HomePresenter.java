@@ -1,6 +1,7 @@
 package ar.edu.itba.pam.mygrocery.home.ui;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
@@ -35,8 +36,18 @@ public class HomePresenter {
 
     private void onProductsReceived(final List<Category> model) {
         if (view.get() != null) {
-            view.get().bindProducts(model);
+            final List<Category> categories = removeEmptyCategories(model);
+            view.get().bindProducts(categories);
         }
+    }
+
+    private List<Category> removeEmptyCategories(List<Category> model) {
+        List<Category> categories = new ArrayList<>();
+        for(Category category : model) {
+            if(category.getProducts().size() > 0)
+                categories.add(category);
+        }
+        return categories;
     }
 
     private void onProductsError(final Throwable e) {

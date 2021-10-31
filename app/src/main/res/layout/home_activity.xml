@@ -10,30 +10,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-<!--    <ViewSwitcher-->
-<!--        android:id="@+id/view_switcher"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_weight="1">-->
-
-<!--        <ar.edu.itba.pam.mygrocery.home.products.ui.ProductsViewImpl-->
-<!--            android:id="@+id/products_activity"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-
-<!--        <ar.edu.itba.pam.mygrocery.home.markets.ui.MarketsListViewImpl-->
-<!--            android:id="@+id/markets_activity"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--    </ViewSwitcher>-->
-
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottom_navigation"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:menu="@menu/bottom_navigation_menu" />-->
-
 </LinearLayout>

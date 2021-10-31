@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.home.products.ProductsAdapter;
 
 public class ProductsListViewImpl extends RecyclerView implements ProductsListView {
@@ -27,6 +28,12 @@ public class ProductsListViewImpl extends RecyclerView implements ProductsListVi
     public void bind(ProductsAdapter productsAdapter) {
         setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        if (productsAdapter.getItemCount() == 0) {
+            setBackgroundResource(R.drawable.ic_empty_products_list);
+        } else {
+            setBackgroundResource(R.color.white);
+        }
         setAdapter(productsAdapter);
+
     }
 }
