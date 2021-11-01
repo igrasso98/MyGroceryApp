@@ -11,9 +11,9 @@
 
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:orientation="vertical">
 
         <TextView
@@ -21,23 +21,27 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:layout_gravity="start" />
 
         <TextView
             android:id="@+id/product_description"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:layout_gravity="start" />
     </LinearLayout>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <ImageView
         android:id="@+id/shop_product"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:scaleType="fitCenter"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/ic_baseline_add_shopping_cart_24"
         app:tint="@color/purple_500"
         tools:ignore="ContentDescription" />
