@@ -18,8 +18,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:src="@drawable/ic_baseline_add_24"
-        app:backgroundTint="@color/purple_500"
-        app:tint="@color/white"
+        app:backgroundTint="@color/light_blue"
+        app:tint="@color/grey"
         android:layout_margin="16dp" />
 
 </merge>

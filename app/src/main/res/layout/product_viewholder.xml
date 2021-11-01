@@ -43,6 +43,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_baseline_add_shopping_cart_24"
-        app:tint="@color/purple_500"
+        app:tint="@color/grey"
         tools:ignore="ContentDescription" />
 </LinearLayout>

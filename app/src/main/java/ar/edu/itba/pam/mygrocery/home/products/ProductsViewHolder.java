@@ -28,11 +28,6 @@ public class ProductsViewHolder extends RecyclerView.ViewHolder {
         productCategoryName.setText(model.getName());
         final TextView productCategoryDescription = itemView.findViewById(R.id.product_category_description);
         productCategoryDescription.setText(model.getProducts().size() + " Productos");
-        if (model.getImage() != null) {
-            final ImageView productCategoryImage = itemView.findViewById(R.id.product_category_image);
-            Bitmap bmp = BitmapFactory.decodeByteArray(model.getImage(), 0, model.getImage().length);
-            productCategoryImage.setImageBitmap(bmp);
-        }
 
     }
 }
