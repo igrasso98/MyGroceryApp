@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_product_description"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:text="Categoria" />
 
     <Spinner
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/choose_category"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="24dp"
         android:text="Mercado" />
 
     <Spinner
@@ -52,12 +52,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cancel_product_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="16dp"
         android:src="@drawable/ic_baseline_close_24"
         app:backgroundTint="@color/red"
         app:tint="@color/white" />
