@@ -4,79 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/enter_product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="25dp"
+        android:hint="Nombre" />
 
-        <EditText
-            android:id="@+id/enter_product_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:hint="Nombre" />
+    <EditText
+        android:id="@+id/enter_product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_product_name"
+        android:layout_marginTop="25dp"
+        android:hint="Marca, modelo, etc" />
 
-        <EditText
-            android:id="@+id/enter_product_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/enter_product_name"
-            android:layout_marginTop="25dp"
-            android:hint="Marca, modelo, etc" />
+    <TextView
+        android:id="@+id/choose_category_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enter_product_description"
+        android:layout_marginTop="25dp"
+        android:text="Categoria" />
 
-        <TextView
-            android:id="@+id/choose_category_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/enter_product_description"
-            android:layout_marginTop="25dp"
-            android:text="Categoria" />
+    <Spinner
+        android:id="@+id/choose_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_category_title" />
 
-        <Spinner
-            android:id="@+id/choose_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/choose_category_title" />
+    <TextView
+        android:id="@+id/choose_market_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_category"
+        android:layout_marginTop="25dp"
+        android:text="Mercado" />
 
-        <TextView
-            android:id="@+id/choose_market_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/choose_category"
-            android:layout_marginTop="25dp"
-            android:text="Mercado" />
+    <Spinner
+        android:id="@+id/choose_market"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_market_title" />
 
-        <Spinner
-            android:id="@+id/choose_market"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/choose_market_title" />
-    </LinearLayout>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <LinearLayout
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancel_product_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:backgroundTint="@color/red"
+        app:tint="@color/white" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cancel_product_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/ic_baseline_close_24"
-            app:backgroundTint="@color/red"
-            app:tint="@color/white" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/confirm_product_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_24"
-            app:backgroundTint="@color/purple_500"
-            app:tint="@color/white" />
-    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/confirm_product_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_24"
+        app:backgroundTint="@color/purple_500"
+        app:tint="@color/white" />
 
 </merge>

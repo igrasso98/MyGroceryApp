@@ -1,6 +1,8 @@
 package ar.edu.itba.pam.mygrocery.home.products.addProduct.ui;
 
 import static android.view.Gravity.CENTER;
+import static android.view.Gravity.END;
+import static android.view.Gravity.START;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,6 +10,7 @@ import android.util.AttributeSet;
 
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -24,7 +27,7 @@ import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnAddProductConfirmLis
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnAddProductCancelListener;
 
-public class AddProductFormImpl extends RelativeLayout implements AddProductFormView {
+public class AddProductFormImpl extends LinearLayout implements AddProductFormView {
 
     private OnAddProductConfirmListener onAddProductConfirmListener;
     private OnAddProductCancelListener onAddProductCancelListener;
@@ -47,7 +50,7 @@ public class AddProductFormImpl extends RelativeLayout implements AddProductForm
     public AddProductFormImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflate(context, R.layout.add_product_form, this);
-        setGravity(CENTER);
+        setGravity(END);
         nameEditText = findViewById(R.id.enter_product_name);
         descriptionEditText = findViewById(R.id.enter_product_description);
         categoriesSpinner = findViewById(R.id.choose_category);
