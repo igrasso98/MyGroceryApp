@@ -12,39 +12,44 @@
 
     <ImageView
         android:id="@+id/market_image"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:src="@drawable/ic_baseline_image_24" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:layout_marginStart="10dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/market_name"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="start" />
 
         <TextView
             android:id="@+id/market_total_products"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" />
+            android:layout_gravity="start" />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <ImageView
         android:id="@+id/shop_product"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="24dp"
-        android:paddingRight="12dp"
-        android:scaleType="fitEnd"
         android:layout_gravity="center|end"
+        android:paddingRight="12dp"
         android:src="@drawable/ic_baseline_arrow_forward_ios_24"
         app:tint="@color/purple_500"
         tools:ignore="ContentDescription" />
