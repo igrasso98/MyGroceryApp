@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -32,7 +30,7 @@ public class ProductsViewImpl extends RelativeLayout implements ProductsView {
 
     public ProductsViewImpl(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        inflate(context, R.layout.products_activity, this);
+        inflate(context, R.layout.products_list, this);
         setGravity(CENTER);
         productsListView = findViewById(R.id.products_list);
         floatingActionButton = findViewById(R.id.add_product_button);

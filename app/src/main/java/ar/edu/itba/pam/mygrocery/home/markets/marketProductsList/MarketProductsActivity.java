@@ -25,6 +25,7 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
         super.onCreate(savedInstanceState);
         assert getSupportActionBar() != null;   //null check
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         setContentView(R.layout.market_products_list_activity);
         createPresenter();
 
