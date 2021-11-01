@@ -5,28 +5,21 @@
     android:layout_gravity="center"
     android:background="@drawable/tile_background"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:paddingLeft="16dp"
+    android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/product_name"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:orientation="vertical">
+        android:layout_gravity="start" />
 
-        <TextView
-            android:id="@+id/product_name"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/product_description"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/product_description"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start" />
 
 </LinearLayout>
