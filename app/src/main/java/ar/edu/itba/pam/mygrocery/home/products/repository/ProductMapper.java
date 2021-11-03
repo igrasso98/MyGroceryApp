@@ -57,6 +57,12 @@ public class ProductMapper {
         return productEntity;
     }
 
+    public CategoryEntity toEntityFromString(String name) {
+        final CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.name = name;
+        return categoryEntity;
+    }
+
     private Category categoryFromEntity(CategoryEntity categoryEntity, List<ProductEntity> productEntities) {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
@@ -65,6 +71,6 @@ public class ProductMapper {
             }
 
         }
-        return new Category(categoryEntity.category_id, categoryEntity.name, categoryEntity.image, products);
+        return new Category(categoryEntity.category_id, categoryEntity.name, products);
     }
 }

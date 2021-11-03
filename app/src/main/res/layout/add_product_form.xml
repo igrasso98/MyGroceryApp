@@ -27,11 +27,28 @@
         android:layout_marginTop="24dp"
         android:text="Categoria" />
 
-    <Spinner
-        android:id="@+id/choose_category"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/choose_category_title" />
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/choose_category"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choose_category_title" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_category_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_add_16"
+            app:backgroundTint="@color/jean"
+            app:fabSize="mini"
+            app:tint="@color/white" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/choose_market_title"
@@ -41,11 +58,29 @@
         android:layout_marginTop="24dp"
         android:text="Mercado" />
 
-    <Spinner
-        android:id="@+id/choose_market"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/choose_market_title" />
+        android:gravity="start"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/choose_market"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choose_market_title"
+            android:layout_gravity="center" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_market_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_add_16"
+            app:backgroundTint="@color/jean"
+            app:fabSize="mini"
+            app:tint="@color/white" />
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"

@@ -4,10 +4,13 @@ import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
 import static android.view.Gravity.START;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,7 +26,10 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
+import ar.edu.itba.pam.mygrocery.home.products.addProduct.AddProductActivity;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnAddProductConfirmListener;
+import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnCreateCategoryListener;
+import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnCreateMarketListener;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnAddProductCancelListener;
 
@@ -31,6 +37,9 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
 
     private OnAddProductConfirmListener onAddProductConfirmListener;
     private OnAddProductCancelListener onAddProductCancelListener;
+    private OnCreateMarketListener onCreateMarketListener;
+    private OnCreateCategoryListener onCreateCategoryListener;
+
 
     private final EditText nameEditText;
     private final EditText descriptionEditText;
@@ -38,6 +47,8 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
     private final Spinner marketsSpinner;
     private final FloatingActionButton confirmBtn;
     private final FloatingActionButton cancelBtn;
+    private final FloatingActionButton createMarketBtn;
+    private final FloatingActionButton createCategoryBtn;
 
     public AddProductFormImpl(@NonNull Context context) {
         this(context, null);
@@ -57,6 +68,8 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
         marketsSpinner = findViewById(R.id.choose_market);
         confirmBtn = findViewById(R.id.confirm_product_button);
         cancelBtn = findViewById(R.id.cancel_product_button);
+        createMarketBtn = findViewById(R.id.add_market_button);
+        createCategoryBtn = findViewById(R.id.add_category_button);
     }
 
     @Override
@@ -78,6 +91,8 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
         );
 
         cancelBtn.setOnClickListener(v -> onAddProductCancelListener.onCancel());
+        createMarketBtn.setOnClickListener(v -> bindMarketDialog());
+        createCategoryBtn.setOnClickListener(v -> bindCategoryDialog());
     }
 
     @Override
@@ -88,5 +103,41 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
     @Override
     public void setOnAddProductCancelListener(OnAddProductCancelListener listener) {
         this.onAddProductCancelListener = listener;
+    }
+
+    @Override
+    public void setOnCreateCategoryListener(OnCreateCategoryListener listener) {
+        this.onCreateCategoryListener = listener;
+    }
+
+    @Override
+    public void setOnCreateMarketListener(OnCreateMarketListener listener) {
+        this.onCreateMarketListener = listener;
+    }
+
+    private void bindMarketDialog() {
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(getContext());
+        myDialog.setTitle("Agregar Mercado");
+
+        final EditText marketNameInput = new EditText(getContext());
+        myDialog.setView(marketNameInput);
+
+        myDialog.setPositiveButton("Agregar", (dialogInterface, i) -> AsyncTask.execute(() -> onCreateMarketListener.onCreateMarket(marketNameInput.getText().toString())));
+
+        myDialog.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
+        myDialog.show();
+    }
+
+    private void bindCategoryDialog() {
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(getContext());
+        myDialog.setTitle("Agregar Categoria");
+
+        final EditText categoryNameInput = new EditText(getContext());
+        myDialog.setView(categoryNameInput);
+
+        myDialog.setPositiveButton("Agregar", (dialogInterface, i) -> AsyncTask.execute(() -> onCreateCategoryListener.onCreateCategory(categoryNameInput.getText().toString())));
+
+        myDialog.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
+        myDialog.show();
     }
 }

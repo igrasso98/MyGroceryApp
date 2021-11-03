@@ -6,6 +6,7 @@ import ar.edu.itba.pam.mygrocery.db.category.CategoryDao;
 import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryProductsDao;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryAllProducts;
+import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import io.reactivex.Flowable;
@@ -42,6 +43,12 @@ public class RoomProductsRepository implements ProductsRepository {
             categories = categoriesList.map(mapper::toCategoryModel);
         }
         return categories;
+    }
+
+    @Override
+    public Long createCategory(String category) {
+        CategoryEntity categoryEntity = mapper.toEntityFromString(category);
+        return categoryDao.insert(categoryEntity);
     }
 
     @Override

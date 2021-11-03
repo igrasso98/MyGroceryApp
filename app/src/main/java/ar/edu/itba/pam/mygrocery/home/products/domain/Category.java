@@ -8,23 +8,16 @@ public class Category {
 
     private final String name;
 
-    private final byte[] image;
-
     private final List<Product> products;
 
-    public Category(final Long id, final String name, final byte[] image, final List<Product> products) {
+    public Category(final Long id, final String name, final List<Product> products) {
         this.id = id;
         this.name = name;
-        this.image = image;
         this.products = products;
     }
 
     public String getName() {
         return name;
-    }
-
-    public byte[] getImage() {
-        return image;
     }
 
     public Long getId() {

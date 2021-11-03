@@ -5,21 +5,41 @@
     android:layout_gravity="center"
     android:background="@drawable/tile_background"
     android:gravity="center"
-    android:paddingLeft="16dp"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
 
-    <TextView
-        android:id="@+id/product_name"
-        style="@style/TextAppearance.AppCompat.Subhead"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/product_name"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start" />
+
+        <TextView
+            android:id="@+id/product_description"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start" />
-
-    <TextView
-        android:id="@+id/product_description"
-        style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Comprar" />
 
 </LinearLayout>

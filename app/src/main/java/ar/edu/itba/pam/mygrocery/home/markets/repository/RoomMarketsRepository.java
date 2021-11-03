@@ -43,6 +43,12 @@ public class RoomMarketsRepository implements MarketsRepository {
     }
 
     @Override
+    public Long createMarket(String market) {
+        MarketEntity marketEntity = mapper.toEntityFromString(market);
+        return marketDao.insert(marketEntity);
+    }
+
+    @Override
     public Flowable<List<Market>> getProductsByMarket() {
         if (markets == null) {
             Flowable<List<MarketAllProducts>> marketsList = marketDao.getMarketsAndProducts();

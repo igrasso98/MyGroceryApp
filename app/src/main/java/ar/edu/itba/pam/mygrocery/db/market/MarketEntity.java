@@ -12,9 +12,4 @@ public class MarketEntity {
 
     @ColumnInfo(name = "market_name")
     public String name;
-
-    @ColumnInfo(name = "category_image", typeAffinity = ColumnInfo.BLOB)
-    public byte[] image;
-
-
 }
