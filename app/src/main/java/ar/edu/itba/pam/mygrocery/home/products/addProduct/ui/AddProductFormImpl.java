@@ -70,8 +70,10 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
         categoriesSpinner.setAdapter(categoryArrayAdapter);
 
         confirmBtn.setOnClickListener(v -> {
-                    AsyncTask.execute(() -> onAddProductConfirmListener.onConfirm(nameEditText.getText().toString(), descriptionEditText.getText().toString(), ((Category) categoriesSpinner.getSelectedItem()).getId(), ((Market) marketsSpinner.getSelectedItem()).getId()));
-                    cancelBtn.performClick();
+                    if ((!(nameEditText.getText().toString().isEmpty() && descriptionEditText.getText().toString().isEmpty()))) {
+                        AsyncTask.execute(() -> onAddProductConfirmListener.onConfirm(nameEditText.getText().toString(), descriptionEditText.getText().toString(), ((Category) categoriesSpinner.getSelectedItem()).getId(), ((Market) marketsSpinner.getSelectedItem()).getId()));
+                        cancelBtn.performClick();
+                    }
                 }
         );
 
