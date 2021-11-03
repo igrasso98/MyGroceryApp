@@ -48,12 +48,16 @@ public class MarketMapper {
     }
 
     public MarketEntity toEntity(Market market) {
+        return mapToEntity(market.getName());
+    }
+
+    public MarketEntity toEntityFromString(String market) {
         return mapToEntity(market);
     }
 
-    private MarketEntity mapToEntity(Market market) {
+    private MarketEntity mapToEntity(String market) {
         final MarketEntity marketEntity = new MarketEntity();
-        marketEntity.name = market.getName();
+        marketEntity.name = market;
         return marketEntity;
     }
 
@@ -64,7 +68,7 @@ public class MarketMapper {
                 products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId));
             }
         }
-        return new Market(marketEntity.market_id, marketEntity.name, marketEntity.image, products);
+        return new Market(marketEntity.market_id, marketEntity.name, products);
     }
 
     private Product productFromEntity(ProductEntity productEntity) {

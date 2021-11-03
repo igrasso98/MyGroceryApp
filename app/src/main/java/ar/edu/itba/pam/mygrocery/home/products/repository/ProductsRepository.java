@@ -13,6 +13,8 @@ public interface ProductsRepository {
 
     Flowable<List<Category>> getCategories();
 
+    Long createCategory(String category);
+
     public void addProducts(List<Product> products);
 
     void addProduct(final Product product);

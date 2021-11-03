@@ -7,15 +7,11 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 public class Market {
     private final Long id;
     private final String name;
-
-    private final byte[] image;
-
     private final List<Product> products;
 
-    public Market(final Long id, final String name, final byte[] image, final List<Product> products) {
+    public Market(final Long id, final String name, final List<Product> products) {
         this.id = id;
         this.name = name;
-        this.image = image;
         this.products = products;
     }
 
@@ -25,10 +21,6 @@ public class Market {
 
     public String getName() {
         return name;
-    }
-
-    public byte[] getImage() {
-        return image;
     }
 
     public List<Product> getProducts() {

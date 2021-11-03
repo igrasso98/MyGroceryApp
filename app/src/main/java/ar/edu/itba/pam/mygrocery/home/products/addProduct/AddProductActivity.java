@@ -20,7 +20,7 @@ import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.repository.RoomProductsRepository;
 
-public class AddProductActivity extends AppCompatActivity implements AddProductView, OnAddProductConfirmListener, OnAddProductCancelListener {
+public class AddProductActivity extends AppCompatActivity implements AddProductView, OnAddProductConfirmListener, OnAddProductCancelListener, OnCreateCategoryListener, OnCreateMarketListener {
     private AddProductPresenter presenter;
     private AddProductFormView addProductFormView;
 
@@ -50,6 +50,8 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
         addProductFormView = findViewById(R.id.add_product_form);
         addProductFormView.setOnAddProductConfirmListener(this);
         addProductFormView.setOnAddProductCancelListener(this);
+        addProductFormView.setOnCreateCategoryListener(this);
+        addProductFormView.setOnCreateMarketListener(this);
         addProductFormView.bind(new ArrayList<>(), new ArrayList<>());
     }
 
@@ -78,5 +80,20 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
     @Override
     public void onConfirm(String name, String description, Long categoryId, Long marketId) {
         presenter.onAddProductConfirm(name, description, categoryId, marketId);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onCreateCategory(String name) {
+        presenter.onCreateCategory(name);
+    }
+
+    @Override
+    public void onCreateMarket(String name) {
+        presenter.onCreateMarket(name);
     }
 }

@@ -53,4 +53,12 @@ public class AddProductPresenter {
         productsRepository.addProduct(new Product(name, description, categoryId, marketId));
     }
 
+    public void onCreateMarket(String name) {
+        marketsRepository.createMarket(name);
+    }
+
+    public void onCreateCategory(String name) {
+        productsRepository.createCategory(name);
+    }
+
 }

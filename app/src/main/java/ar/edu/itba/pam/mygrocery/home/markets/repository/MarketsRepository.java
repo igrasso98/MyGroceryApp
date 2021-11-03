@@ -15,6 +15,8 @@ public interface MarketsRepository {
 
     Flowable<Market> getMarketProductsList(final Long marketId);
 
+    Long createMarket(final String market);
+
     void addProduct(final Market market, final Product product);
 
     void removeProduct(final Market market, final Product product);
