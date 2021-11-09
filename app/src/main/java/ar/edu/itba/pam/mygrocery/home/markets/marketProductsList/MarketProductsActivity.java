@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
 import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
@@ -14,8 +16,11 @@ import ar.edu.itba.pam.mygrocery.home.markets.marketProductsList.ui.MarketProduc
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.products.OnBuyProductClickedListener;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 
-public class MarketProductsActivity extends AppCompatActivity implements MarketProductsView {
+public class MarketProductsActivity extends AppCompatActivity implements MarketProductsView, OnCheckProductClickedListener {
     private MarketProductAdapter marketProductAdapter;
     private MarketProductsPresenter presenter;
     private MarketProductsListView marketProductsListView;
@@ -37,7 +42,8 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
 
         if (presenter == null) {
             final MarketMapper marketMapper = new MarketMapper();
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
+            final ProductMapper productMapper = new ProductMapper();
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
             presenter = new MarketProductsPresenter(this, marketsRepository);
         }
     }
@@ -45,12 +51,13 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     private void setUpView() {
         marketProductsListView = findViewById(R.id.market_products_list);
         marketProductAdapter = new MarketProductAdapter();
+        marketProductAdapter.setOnProductClickedListener(this);
         marketProductsListView.bind(marketProductAdapter);
     }
 
     @Override
-    public void bind(Market market) {
-        marketProductAdapter.setDataset(market.getProducts());
+    public void bind(List<Product> products) {
+        marketProductAdapter.setDataset(products);
     }
 
     @Override
@@ -62,7 +69,7 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     protected void onStart() {
         Intent intent = getIntent();
         super.onStart();
-        presenter.onViewAttached(intent.getLongExtra("market_id", -1));
+        presenter.onViewAttached(intent.getLongExtra("market_id", -1), intent.getStringExtra("market_name"));
     }
 
     @Override
@@ -75,5 +82,11 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    public void onCheckProduct(Long marketProductId, Boolean check) {
+        presenter.onCheckProductClicked(marketProductId, check);
+
     }
 }

@@ -46,9 +46,13 @@ public class RoomProductsRepository implements ProductsRepository {
     }
 
     @Override
-    public Long createCategory(String category) {
+    public void createCategory(String category) {
         CategoryEntity categoryEntity = mapper.toEntityFromString(category);
-        return categoryDao.insert(categoryEntity);
+        try {
+            categoryDao.insert(categoryEntity);
+        } catch (Exception e) {
+            return;
+        }
     }
 
     @Override
@@ -60,7 +64,11 @@ public class RoomProductsRepository implements ProductsRepository {
     @Override
     public void addProduct(Product product) {
         this.categories = null;
-        productDao.insert(mapper.toEntity(product));
+        try {
+            productDao.insert(mapper.toEntity(product));
+        } catch (Exception e) {
+            return;
+        }
     }
 
     @Override

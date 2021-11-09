@@ -17,6 +17,7 @@ import ar.edu.itba.pam.mygrocery.home.markets.marketProductsList.MarketProductsA
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 
 public class MarketsActivity extends AppCompatActivity implements MarketsView, OnMarketClickedListener {
     private MarketAdapter marketAdapter;
@@ -40,8 +41,9 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
 
         if (presenter == null) {
             final MarketMapper marketMapper = new MarketMapper();
+            final ProductMapper productMapper = new ProductMapper();
 
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
             presenter = new MarketsPresenter(this, marketsRepository);
         }
     }
@@ -63,10 +65,11 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
     }
 
     @Override
-    public void showMarketProducts(Long marketId) {
+    public void showMarketProducts(Long marketId, String name) {
         Intent intent = new Intent(this, MarketProductsActivity.class);
         intent.setData(Uri.parse("pam://markets/market"));
         intent.putExtra("market_id", marketId);
+        intent.putExtra("market_name", name);
         startActivity(intent);
     }
 
@@ -88,8 +91,8 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
     }
 
     @Override
-    public void onMarketClicked(final Long marketId) {
-        presenter.onMarketClicked(marketId);
+    public void onMarketClicked(final Long marketId, final String name) {
+        presenter.onMarketClicked(marketId, name);
     }
 
     @Override

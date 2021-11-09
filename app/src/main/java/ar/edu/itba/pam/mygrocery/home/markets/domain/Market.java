@@ -7,12 +7,12 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 public class Market {
     private final Long id;
     private final String name;
-    private final List<Product> products;
+    private final int productsQty;
 
-    public Market(final Long id, final String name, final List<Product> products) {
+    public Market(final Long id, final String name, final int productsQty) {
         this.id = id;
         this.name = name;
-        this.products = products;
+        this.productsQty = productsQty;
     }
 
     public Long getId() {
@@ -23,8 +23,8 @@ public class Market {
         return name;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public int getProductsQty() {
+        return productsQty;
     }
 
     @Override

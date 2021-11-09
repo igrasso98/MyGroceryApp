@@ -6,53 +6,59 @@ import ar.edu.itba.pam.mygrocery.db.market.MarketDao;
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProduct;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProductsDao;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import io.reactivex.Flowable;
 
 public class RoomMarketsRepository implements MarketsRepository {
 
     private final MarketDao marketDao;
     private final MarketProductsDao marketProductsDao;
-    private final MarketMapper mapper;
+    private final MarketMapper marketMapper;
+    private final ProductMapper productMapper;
 
     private Flowable<List<Market>> markets;
 
-    public RoomMarketsRepository(final MarketDao marketDao, final MarketProductsDao marketProductsDao, final MarketMapper mapper) {
+    public RoomMarketsRepository(final MarketDao marketDao, final MarketProductsDao marketProductsDao, final MarketMapper marketMapper, final ProductMapper productMapper) {
         this.marketDao = marketDao;
         this.marketProductsDao = marketProductsDao;
-        this.mapper = mapper;
+        this.marketMapper = marketMapper;
+        this.productMapper = productMapper;
     }
 
     @Override
     public Flowable<List<Market>> getMarkets() {
         if (markets == null) {
             Flowable<List<MarketEntity>> marketsList = marketDao.getMarkets();
-            markets = marketsList.map(mapper::toMarketModel);
+            markets = marketsList.map(marketMapper::toMarketModel);
         }
         return markets;
     }
 
     @Override
-    public Flowable<Market> getMarketProductsList(final Long marketId) {
-
-        Flowable<MarketAllProducts> marketAllProducts = marketProductsDao.getMarketAndProducts(marketId);
-        Flowable<Market> market = marketAllProducts.map(mapper::toProductsByMarketModel);
-        return market;
+    public Flowable<List<Product>> getMarketProductsList(final Long marketId) {
+        Flowable<List<MarketProduct>> marketAllProducts = marketProductsDao.getMarketProducts(marketId);
+        return marketAllProducts.map(marketAllProduct -> productMapper.toProductsByMarketProducts(marketId, marketAllProduct));
     }
 
     @Override
-    public Long createMarket(String market) {
-        MarketEntity marketEntity = mapper.toEntityFromString(market);
-        return marketDao.insert(marketEntity);
+    public void createMarket(String market) {
+        MarketEntity marketEntity = marketMapper.toEntityFromString(market);
+        try {
+            marketDao.insert(marketEntity);
+        } catch (Exception e) {
+            return;
+        }
     }
 
     @Override
     public Flowable<List<Market>> getProductsByMarket() {
         if (markets == null) {
-            Flowable<List<MarketAllProducts>> marketsList = marketDao.getMarketsAndProducts();
-            markets = marketsList.map(mapper::toProductsByMarketsModel);
+            Flowable<List<MarketAllProducts>> marketsList = marketDao.getMarketAndProductsQty();
+            markets = marketsList.map(marketMapper::toProductsByMarketsModel);
         }
         return markets;
     }
@@ -75,5 +81,10 @@ public class RoomMarketsRepository implements MarketsRepository {
         marketAllProductsEntity.isCheck = false;
         marketProductsDao.insert(marketAllProductsEntity);
 
+    }
+
+    @Override
+    public void checkProduct(Long marketProductId, Boolean check) {
+        marketProductsDao.updateIsCheck(marketProductId,check);
     }
 }

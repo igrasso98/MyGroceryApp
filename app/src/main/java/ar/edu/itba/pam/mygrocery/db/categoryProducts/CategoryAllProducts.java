@@ -1,7 +1,6 @@
 package ar.edu.itba.pam.mygrocery.db.categoryProducts;
 
 import androidx.room.Embedded;
-import androidx.room.Entity;
 import androidx.room.Relation;
 
 import java.util.List;

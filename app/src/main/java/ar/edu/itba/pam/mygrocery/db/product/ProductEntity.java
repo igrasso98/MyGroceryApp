@@ -1,16 +1,12 @@
 package ar.edu.itba.pam.mygrocery.db.product;
 
-import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
-
-//@Entity(tableName = "products", foreignKeys = @ForeignKey(entity = CategoryEntity.class, parentColumns = "category_id", childColumns = "my_category_id", onDelete = CASCADE))
-@Entity(tableName = "products")
+@Entity(tableName = "products", indices = {@Index(value = {"product_name", "product_description", "my_category_id"}, unique = true)})
 public class ProductEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")

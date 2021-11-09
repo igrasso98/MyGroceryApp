@@ -20,11 +20,12 @@ public class MarketViewHolder extends RecyclerView.ViewHolder {
         final TextView marketName = itemView.findViewById(R.id.market_name);
         marketName.setText(model.getName());
         final TextView marketDescription = itemView.findViewById(R.id.market_total_products);
-        marketDescription.setText(model.getProducts().size() + " Productos");
+        final String prodsQtyDescription = model.getProductsQty() == 1 ? " Producto" : " Productos";
+        marketDescription.setText(model.getProductsQty() + prodsQtyDescription);
 
         itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onMarketClicked(model.getId());
+                listener.onMarketClicked(model.getId(), model.getName());
             }
         });
     }
