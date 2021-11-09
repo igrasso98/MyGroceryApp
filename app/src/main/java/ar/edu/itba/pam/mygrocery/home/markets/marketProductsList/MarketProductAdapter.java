@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
-import ar.edu.itba.pam.mygrocery.home.products.ProductViewHolder;
+import ar.edu.itba.pam.mygrocery.home.products.OnBuyProductClickedListener;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class MarketProductAdapter extends RecyclerView.Adapter<MarketProductViewHolder> {
 
     private final List<Product> dataset;
+    private OnCheckProductClickedListener listener;
 
     public MarketProductAdapter() {
         dataset = new ArrayList<>();
@@ -30,6 +31,10 @@ public class MarketProductAdapter extends RecyclerView.Adapter<MarketProductView
         notifyDataSetChanged();
     }
 
+    public void setOnProductClickedListener(final OnCheckProductClickedListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public MarketProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,6 +45,7 @@ public class MarketProductAdapter extends RecyclerView.Adapter<MarketProductView
     @Override
     public void onBindViewHolder(@NonNull MarketProductViewHolder holder, int position) {
         holder.bind(dataset.get(position));
+        holder.setOnClickListener(listener);
     }
 
     @Override

@@ -7,7 +7,7 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 
 public interface MarketsView {
 
-    void showMarketProducts(Long marketId);
+    void showMarketProducts(Long marketId, String name);
 
     void bindMarkets(List<Market> model);
 }

@@ -13,13 +13,15 @@ public interface MarketsRepository {
 
     Flowable<List<Market>> getMarkets();
 
-    Flowable<Market> getMarketProductsList(final Long marketId);
+    Flowable<List<Product>> getMarketProductsList(final Long marketId);
 
-    Long createMarket(final String market);
+    void createMarket(final String market);
 
     void addProduct(final Market market, final Product product);
 
     void removeProduct(final Market market, final Product product);
 
     void buyProduct(final Long productId, final Long marketId);
+
+    public void checkProduct(Long marketProductId, Boolean check);
 }

@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnBuyPr
             final ProductMapper productMapper = new ProductMapper();
             final MarketMapper marketMapper = new MarketMapper();
             final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper,productMapper);
             presenter = new HomePresenter(this, productsRepository, marketsRepository);
         }
     }

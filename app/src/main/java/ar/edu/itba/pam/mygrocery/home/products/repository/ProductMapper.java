@@ -6,10 +6,12 @@ import java.util.List;
 import ar.edu.itba.pam.mygrocery.db.category.CategoryEntity;
 import ar.edu.itba.pam.mygrocery.db.categoryProducts.CategoryAllProducts;
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProduct;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+import io.reactivex.Flowable;
 
 public class ProductMapper {
 
@@ -72,5 +74,15 @@ public class ProductMapper {
 
         }
         return new Category(categoryEntity.category_id, categoryEntity.name, products);
+    }
+
+    public List<Product> toProductsByMarketProducts(Long marketId, List<MarketProduct> marketProducts) {
+        List<Product> products = new ArrayList<>();
+        for (MarketProduct marketProduct : marketProducts) {
+            ProductEntity productEntity = marketProduct.product;
+            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, marketId, marketProduct.isCheck, marketProduct.marketProductId));
+        }
+
+        return products;
     }
 }

@@ -23,9 +23,9 @@ public class MarketsPresenter {
         this.marketsRepository = marketsRepository;
     }
 
-    public void onMarketClicked(final Long marketId) {
+    public void onMarketClicked(final Long marketId, final String name) {
         if (view.get() != null) {
-            view.get().showMarketProducts(marketId);
+            view.get().showMarketProducts(marketId, name);
         }
     }
 
@@ -43,7 +43,7 @@ public class MarketsPresenter {
     private List<Market> removeEmptyMarkets(List<Market> model) {
         List<Market> markets = new ArrayList<>();
         for (Market market : model) {
-            if (market.getProducts().size() > 0) {
+            if (market.getProductsQty() > 0) {
                 markets.add(market);
             }
         }

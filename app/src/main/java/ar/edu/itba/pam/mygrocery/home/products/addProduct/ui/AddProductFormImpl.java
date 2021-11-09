@@ -1,21 +1,17 @@
 package ar.edu.itba.pam.mygrocery.home.products.addProduct.ui;
 
-import static android.view.Gravity.CENTER;
 import static android.view.Gravity.END;
-import static android.view.Gravity.START;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +19,10 @@ import androidx.annotation.Nullable;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
-import ar.edu.itba.pam.mygrocery.home.products.addProduct.AddProductActivity;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnAddProductConfirmListener;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnCreateCategoryListener;
 import ar.edu.itba.pam.mygrocery.home.products.addProduct.OnCreateMarketListener;

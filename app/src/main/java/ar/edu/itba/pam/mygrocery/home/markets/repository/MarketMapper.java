@@ -5,24 +5,26 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
+import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProduct;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public class MarketMapper {
     public List<Market> toProductsByMarketsModel(final List<MarketAllProducts> marketsAllProducts) {
-        final List<Market> productsByMarket = new ArrayList<>();
+        final List<Market> markets = new ArrayList<>();
         for (final MarketAllProducts marketAllProducts : marketsAllProducts) {
             Market market = toProductsByMarketModel(marketAllProducts);
-            if (!productsByMarket.contains(market)) {
-                productsByMarket.add(market);
+            if (!markets.contains(market)) {
+                markets.add(market);
             }
         }
-        return productsByMarket;
+        return markets;
     }
 
     public Market toProductsByMarketModel(final MarketAllProducts marketAllProducts) {
-        Market market = marketFromEntity(marketAllProducts.market, marketAllProducts.products);
+        Market market = marketFromEntity(marketAllProducts.market, marketAllProducts.productsQty);
         return market;
     }
 
@@ -30,7 +32,7 @@ public class MarketMapper {
     public List<Market> toMarketModel(final List<MarketEntity> marketEntities) {
         final List<Market> markets = new ArrayList<>();
         for (final MarketEntity marketEntity : marketEntities) {
-            Market market = marketFromEntity(marketEntity, null);
+            Market market = marketFromEntity(marketEntity, 0);
             if (!markets.contains(market)) {
                 markets.add(market);
             }
@@ -61,14 +63,8 @@ public class MarketMapper {
         return marketEntity;
     }
 
-    private Market marketFromEntity(MarketEntity marketEntity, List<ProductEntity> productEntities) {
-        List<Product> products = new ArrayList<>();
-        if (productEntities != null) {
-            for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId));
-            }
-        }
-        return new Market(marketEntity.market_id, marketEntity.name, products);
+    private Market marketFromEntity(MarketEntity marketEntity, int productsQty) {
+        return new Market(marketEntity.market_id, marketEntity.name, productsQty);
     }
 
     private Product productFromEntity(ProductEntity productEntity) {

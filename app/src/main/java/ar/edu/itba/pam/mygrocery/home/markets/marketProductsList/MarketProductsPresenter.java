@@ -1,9 +1,11 @@
 package ar.edu.itba.pam.mygrocery.home.markets.marketProductsList;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -19,14 +21,14 @@ public class MarketProductsPresenter {
         this.marketsRepository = marketsRepository;
     }
 
-    public void onViewAttached(final Long marketId) {
-        disposable = marketsRepository.getMarketProductsList(marketId).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onProductsListReceived);
+    public void onViewAttached(final Long marketId, final String marketName) {
+        disposable = marketsRepository.getMarketProductsList(marketId).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(p -> this.onProductsListReceived(p,marketName));
     }
 
-    private void onProductsListReceived(final Market market) {
+    private void onProductsListReceived(final List<Product> products, String marketName) {
         if (view.get() != null) {
-            view.get().setActivityTitle(market.getName());
-            view.get().bind(market);
+            view.get().setActivityTitle(marketName);
+            view.get().bind(products);
         }
     }
 
@@ -38,4 +40,7 @@ public class MarketProductsPresenter {
         disposable.dispose();
     }
 
+    public void onCheckProductClicked(Long marketProductId, Boolean check) {
+        marketsRepository.checkProduct(marketProductId, check);
+    }
 }
