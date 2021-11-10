@@ -3,6 +3,7 @@ package ar.edu.itba.pam.mygrocery.home.products;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,7 +21,6 @@ import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
-// RESPONSABILIDAD DE REPRESENTAR LOS DATOS EN LA PANTALLA
 public class ProductViewHolder extends RecyclerView.ViewHolder {
 
     private OnBuyProductClickedListener listener;
@@ -49,16 +49,22 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
     private void bindMarketDialog(final Context context, final Long productId, final List<Market> markets) {
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(context);
-        myDialog.setTitle("Seleccionar Mercado");
-
+        myDialog.setTitle("Comprar producto");
+        myDialog.setMessage("Seleccione a que lista se agregará el producto.");
         final Spinner marketsSpinner = new Spinner(context);
         ArrayAdapter<Market> marketArrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, markets);
         marketArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         marketsSpinner.setAdapter(marketArrayAdapter);
+        marketsSpinner.setPadding(toDp(context,16),0,toDp(context,16),0);
         myDialog.setView(marketsSpinner);
 
-        myDialog.setPositiveButton("Seleccionar", (dialogInterface, i) -> AsyncTask.execute(() -> listener.onBuyProductClicked(productId, ((Market) marketsSpinner.getSelectedItem()).getId())));
+        myDialog.setPositiveButton("Comprar", (dialogInterface, i) -> AsyncTask.execute(() -> listener.onBuyProductClicked(productId, ((Market) marketsSpinner.getSelectedItem()).getId())));
         myDialog.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
         myDialog.show();
+    }
+
+    // Extension method to convert pixels to dp
+    private int toDp(Context context, int value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Long.valueOf(value), context.getResources().getDisplayMetrics());
     }
 }

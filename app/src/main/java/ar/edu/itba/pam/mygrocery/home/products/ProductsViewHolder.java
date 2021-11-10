@@ -27,7 +27,8 @@ public class ProductsViewHolder extends RecyclerView.ViewHolder {
         final TextView productCategoryName = itemView.findViewById(R.id.product_category_name);
         productCategoryName.setText(model.getName());
         final TextView productCategoryDescription = itemView.findViewById(R.id.product_category_description);
-        productCategoryDescription.setText(model.getProducts().size() + " Productos");
+        final String prod = model.getProducts().size() == 1 ? " Producto" : " Productos";
+        productCategoryDescription.setText(model.getProducts().size()  + prod);
 
     }
 }

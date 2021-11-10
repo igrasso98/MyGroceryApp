@@ -26,11 +26,10 @@ public class MainApplication extends Application {
 
     private void createCategoryDataSet() {
         final List<String> categories = new ArrayList<String>() {{
-            add("CARNES");
-            add("VERDULERIA");
-            add("CONGELADOS");
+            add("Carnes");
+            add("Frutas y Verduras");
         }};
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             final CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.category_id = Long.valueOf(i);
             categoryEntity.name = categories.get(i);
@@ -40,7 +39,6 @@ public class MainApplication extends Application {
 
     private List<ProductEntity> createProductDataSet() {
         final List<ProductEntity> list = new ArrayList<>();
-
         for (int i = 0; i < 10; i++) {
             final ProductEntity productEntity = new ProductEntity();
             productEntity.name = String.valueOf(Math.random());
@@ -52,11 +50,9 @@ public class MainApplication extends Application {
 
     private void createMarketsDataSet() {
         final List<String> markets = new ArrayList<String>() {{
-            add("JUMBO");
-            add("COTO");
-            add("CARREFOUR");
+            add("Mi Lista");
         }};
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 1; i++) {
             final MarketEntity marketEntity = new MarketEntity();
             marketEntity.market_id = Long.valueOf(i);
             marketEntity.name = markets.get(i);

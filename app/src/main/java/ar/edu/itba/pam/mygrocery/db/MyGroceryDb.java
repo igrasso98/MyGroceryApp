@@ -16,7 +16,7 @@ import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProductsDao;
 import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 
-@Database(entities = {ProductEntity.class, CategoryEntity.class, MarketEntity.class, MarketAllProductsEntity.class}, version = 18)
+@Database(entities = {ProductEntity.class, CategoryEntity.class, MarketEntity.class, MarketAllProductsEntity.class}, version = 21)
 abstract public class MyGroceryDb extends RoomDatabase {
     private static final String NAME = "pm_db";
     private static MyGroceryDb instance;
