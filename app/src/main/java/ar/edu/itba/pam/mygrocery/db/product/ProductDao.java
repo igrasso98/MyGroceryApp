@@ -18,6 +18,9 @@ public interface ProductDao {
     @Insert
     void insert(final ProductEntity product);
 
+    @Query("UPDATE products SET product_last_purchased = :lastPurchased  WHERE product_id = :id")
+    void updateLastPurchased(Long id, Long lastPurchased);
+
     @Insert
     void insertAll(final List<ProductEntity> products);
 

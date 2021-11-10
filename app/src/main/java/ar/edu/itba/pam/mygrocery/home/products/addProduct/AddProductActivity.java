@@ -41,7 +41,7 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
             final ProductMapper productMapper = new ProductMapper();
             final MarketMapper marketMapper = new MarketMapper();
             final ProductsRepository productsRepository = new RoomProductsRepository(MyGroceryDb.getInstance(getApplicationContext()).categoryProductsDao(), MyGroceryDb.getInstance(getApplicationContext()).categoryDao(), MyGroceryDb.getInstance(getApplicationContext()).productDao(), productMapper);
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).productDao(), MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
             presenter = new AddProductPresenter(this, productsRepository, marketsRepository);
         }
     }
@@ -78,8 +78,8 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
     }
 
     @Override
-    public void onConfirm(String name, String description, Long categoryId, Long marketId) {
-        presenter.onAddProductConfirm(name, description, categoryId, marketId);
+    public void onConfirm(String name, String description, Long categoryId, Long marketId, int autorestock) {
+        presenter.onAddProductConfirm(name, description, categoryId, marketId, autorestock);
     }
 
     @Override

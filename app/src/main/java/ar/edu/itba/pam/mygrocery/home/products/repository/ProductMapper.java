@@ -56,6 +56,8 @@ public class ProductMapper {
         productEntity.description = product.getDescription().trim();
         productEntity.categoryId = product.getCategoryId();
         productEntity.marketId = product.getMarketId();
+        productEntity.autorestock = product.getAutorestock();
+        productEntity.lastPurchased = product.getLastPurchased();
         return productEntity;
     }
 
@@ -69,7 +71,7 @@ public class ProductMapper {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, categoryEntity.category_id, productEntity.marketId));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, categoryEntity.category_id, productEntity.marketId, productEntity.autorestock, productEntity.lastPurchased));
             }
 
         }
@@ -80,7 +82,16 @@ public class ProductMapper {
         List<Product> products = new ArrayList<>();
         for (MarketProduct marketProduct : marketProducts) {
             ProductEntity productEntity = marketProduct.product;
-            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, marketId, marketProduct.isCheck, marketProduct.marketProductId));
+            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, marketId, marketProduct.isCheck, marketProduct.marketProductId, productEntity.autorestock, productEntity.lastPurchased));
+        }
+
+        return products;
+    }
+
+    public List<Product> toProducts(List<ProductEntity> productEntities) {
+        List<Product> products = new ArrayList<>();
+        for (ProductEntity productEntity : productEntities) {
+            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId, productEntity.autorestock, productEntity.lastPurchased));
         }
 
         return products;

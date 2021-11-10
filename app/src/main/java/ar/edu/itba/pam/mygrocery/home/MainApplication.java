@@ -10,17 +10,23 @@ import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
+import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
+import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainApplication extends Application {
+    private static final long DAY_IN_MILLIS = 24 * 60 * 60 * 1000;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Completable.fromAction(() -> {
             createCategoryDataSet();
             createMarketsDataSet();
+            autorestockProducts();
         }).onErrorComplete().observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe();
     }
 
@@ -37,17 +43,6 @@ public class MainApplication extends Application {
         }
     }
 
-    private List<ProductEntity> createProductDataSet() {
-        final List<ProductEntity> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            final ProductEntity productEntity = new ProductEntity();
-            productEntity.name = String.valueOf(Math.random());
-            productEntity.categoryId = Long.valueOf(i % 3);
-            list.add(productEntity);
-        }
-        return list;
-    }
-
     private void createMarketsDataSet() {
         final List<String> markets = new ArrayList<String>() {{
             add("Mi Lista");
@@ -58,7 +53,28 @@ public class MainApplication extends Application {
             marketEntity.name = markets.get(i);
             MyGroceryDb.getInstance(getApplicationContext()).marketDao().insert(marketEntity);
         }
+    }
 
+    private void autorestockProducts() {
+        final MyGroceryDb db = MyGroceryDb.getInstance(getApplicationContext());
+        final Flowable<List<ProductEntity>> entities = db.productDao().getProducts();
+        final List<Product> products = entities.map(v -> new ProductMapper().toProducts(v)).blockingFirst();
+
+        final Long currentTimestamp = System.currentTimeMillis();
+        for (Product product : products) {
+            double days = (currentTimestamp - product.getLastPurchased()) / ((double) DAY_IN_MILLIS);
+            int addTimes = (int) days / product.getAutorestock();
+
+            for (int i = 0; i < addTimes; i++) {
+                final MarketAllProductsEntity entity = new MarketAllProductsEntity();
+                entity.isCheck = false;
+                entity.productId = product.getId();
+                entity.marketId = product.getMarketId();
+                db.marketProductsDao().insert(entity);
+            }
+
+            db.productDao().updateLastPurchased(product.getId(), product.getLastPurchased());
+        }
     }
 
 //    public byte[] ImageToByteArray() {

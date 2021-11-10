@@ -48,7 +48,7 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
         if (presenter == null) {
             final MarketMapper marketMapper = new MarketMapper();
             final ProductMapper productMapper = new ProductMapper();
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).productDao(), MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
             presenter = new MarketProductsPresenter(this, marketsRepository);
         }
     }

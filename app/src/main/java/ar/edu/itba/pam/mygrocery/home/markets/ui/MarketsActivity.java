@@ -43,7 +43,7 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
             final MarketMapper marketMapper = new MarketMapper();
             final ProductMapper productMapper = new ProductMapper();
 
-            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
+            final MarketsRepository marketsRepository = new RoomMarketsRepository(MyGroceryDb.getInstance(getApplicationContext()).productDao(), MyGroceryDb.getInstance(getApplicationContext()).marketDao(), MyGroceryDb.getInstance(getApplicationContext()).marketProductsDao(), marketMapper, productMapper);
             presenter = new MarketsPresenter(this, marketsRepository);
         }
     }

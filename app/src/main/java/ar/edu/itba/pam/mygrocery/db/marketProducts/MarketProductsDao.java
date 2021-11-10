@@ -27,4 +27,7 @@ public interface MarketProductsDao {
 
     @Query("DELETE FROM marketLists WHERE my_market_id = :marketId")
     void clearMarket(Long marketId);
+
+    @Query("SELECT my_product_id FROM marketLists WHERE market_product_id = :marketProductId")
+    Long getProductId(Long marketProductId);
 }
