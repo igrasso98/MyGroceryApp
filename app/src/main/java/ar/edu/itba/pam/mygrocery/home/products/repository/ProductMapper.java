@@ -85,4 +85,13 @@ public class ProductMapper {
 
         return products;
     }
+
+    public List<Product> toProducts(List<ProductEntity> productEntities) {
+        List<Product> products = new ArrayList<>();
+        for (ProductEntity productEntity : productEntities) {
+            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId, productEntity.autorestock));
+        }
+
+        return products;
+    }
 }

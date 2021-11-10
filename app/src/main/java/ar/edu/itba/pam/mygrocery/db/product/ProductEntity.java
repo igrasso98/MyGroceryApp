@@ -26,4 +26,7 @@ public class ProductEntity {
 
     @ColumnInfo(name = "product_autorestock")
     public Integer autorestock;
+
+    @ColumnInfo(name = "product_last_purchased")
+    public Long timestamp;
 }
