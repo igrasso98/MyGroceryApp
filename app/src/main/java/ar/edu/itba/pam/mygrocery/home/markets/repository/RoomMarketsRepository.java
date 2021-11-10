@@ -87,4 +87,9 @@ public class RoomMarketsRepository implements MarketsRepository {
     public void checkProduct(Long marketProductId, Boolean check) {
         marketProductsDao.updateIsCheck(marketProductId,check);
     }
+
+    @Override
+    public void closeMarketProductsList(Long marketId) {
+        marketProductsDao.clearMarket(marketId);
+    }
 }

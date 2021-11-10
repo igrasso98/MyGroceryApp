@@ -43,4 +43,8 @@ public class MarketProductsPresenter {
     public void onCheckProductClicked(Long marketProductId, Boolean check) {
         marketsRepository.checkProduct(marketProductId, check);
     }
+
+    public void onCloseListClicked(Long marketId) {
+        marketsRepository.closeMarketProductsList(marketId);
+    }
 }
