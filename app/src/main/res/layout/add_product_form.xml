@@ -20,6 +20,54 @@
         android:hint="Marca, modelo, etc" />
 
     <TextView
+        android:id="@+id/autorestock_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Agregado a la lista automatico" />
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/counter_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_baseline_minus_16"
+            android:enabled="false"
+            app:backgroundTint="@color/jean"
+            app:fabSize="mini"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/autorestock_days"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:text="Desactivado" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/counter_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@drawable/ic_baseline_add_16"
+            app:backgroundTint="@color/jean"
+            app:fabSize="mini"
+            app:tint="@color/white" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <TextView
         android:id="@+id/choose_category_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

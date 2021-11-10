@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,12 +38,16 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
     private OnCreateCategoryListener onCreateCategoryListener;
 
 
+    private int autorestock;
     private final EditText nameEditText;
+    private final TextView autorestockText;
     private final EditText descriptionEditText;
     private final Spinner categoriesSpinner;
     private final Spinner marketsSpinner;
     private final FloatingActionButton confirmBtn;
     private final FloatingActionButton cancelBtn;
+    private final FloatingActionButton autorestockMinus;
+    private final FloatingActionButton autorestockPlus;
     private final FloatingActionButton createMarketBtn;
     private final FloatingActionButton createCategoryBtn;
 
@@ -58,12 +63,15 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
         super(context, attrs, defStyleAttr);
         inflate(context, R.layout.add_product_form, this);
         setGravity(END);
+        autorestockText = findViewById(R.id.autorestock_days);
         nameEditText = findViewById(R.id.enter_product_name);
         descriptionEditText = findViewById(R.id.enter_product_description);
         categoriesSpinner = findViewById(R.id.choose_category);
         marketsSpinner = findViewById(R.id.choose_market);
         confirmBtn = findViewById(R.id.confirm_product_button);
         cancelBtn = findViewById(R.id.cancel_product_button);
+        autorestockMinus = findViewById(R.id.counter_minus);
+        autorestockPlus = findViewById(R.id.counter_plus);
         createMarketBtn = findViewById(R.id.add_market_button);
         createCategoryBtn = findViewById(R.id.add_category_button);
     }
@@ -87,6 +95,10 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
         );
 
         cancelBtn.setOnClickListener(v -> onAddProductCancelListener.onCancel());
+
+        autorestockMinus.setOnClickListener(v -> setAutorestock(autorestock - 1));
+        autorestockPlus.setOnClickListener(v -> setAutorestock(autorestock + 1));
+
         createMarketBtn.setOnClickListener(v -> bindMarketDialog());
         createCategoryBtn.setOnClickListener(v -> bindCategoryDialog());
     }
@@ -109,6 +121,20 @@ public class AddProductFormImpl extends LinearLayout implements AddProductFormVi
     @Override
     public void setOnCreateMarketListener(OnCreateMarketListener listener) {
         this.onCreateMarketListener = listener;
+    }
+
+    private void setAutorestock(int qty) {
+        if (qty <= 0) {
+            this.autorestock = 0;
+            this.autorestockText.setText("Desactivado");
+            this.autorestockMinus.setEnabled(false);
+        } else {
+            this.autorestock = qty;
+            this.autorestockText.setText(qty + (qty == 1 ? " dia" : " dias"));
+            if (!this.autorestockMinus.isEnabled()) {
+                this.autorestockMinus.setEnabled(true);
+            }
+        }
     }
 
     private void bindMarketDialog() {
