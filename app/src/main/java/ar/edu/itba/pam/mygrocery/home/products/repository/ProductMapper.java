@@ -52,8 +52,8 @@ public class ProductMapper {
 
     private ProductEntity mapToEntity(Product product) {
         final ProductEntity productEntity = new ProductEntity();
-        productEntity.name = product.getName();
-        productEntity.description = product.getDescription();
+        productEntity.name = product.getName().trim();
+        productEntity.description = product.getDescription().trim();
         productEntity.categoryId = product.getCategoryId();
         productEntity.marketId = product.getMarketId();
         return productEntity;
@@ -61,7 +61,7 @@ public class ProductMapper {
 
     public CategoryEntity toEntityFromString(String name) {
         final CategoryEntity categoryEntity = new CategoryEntity();
-        categoryEntity.name = name;
+        categoryEntity.name = name.trim();
         return categoryEntity;
     }
 

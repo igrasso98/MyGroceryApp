@@ -59,7 +59,7 @@ public class MarketMapper {
 
     private MarketEntity mapToEntity(String market) {
         final MarketEntity marketEntity = new MarketEntity();
-        marketEntity.name = market;
+        marketEntity.name = market.trim();
         return marketEntity;
     }
 
