@@ -85,8 +85,16 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
-        return true;
+        // Check if all items are checked
+        if (marketProductAdapter.getItemCount() > 0 && !marketProductAdapter.hasUncheckedProducts()) {
+            runOnUiThread(() -> {
+                bindCloseAllCheckedDialog(this);
+            });
+            return false;
+        } else {
+            navigateUp();
+            return true;
+        }
     }
 
     @Override
@@ -114,18 +122,42 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     @Override
     public void onCloseListClicked(Long marketId) {
         presenter.onCloseListClicked(marketId);
-        onSupportNavigateUp();
     }
 
     private void bindCloseDialog(final Context context) {
-        Intent intent = getIntent();
+        Long marketId = getIntent().getLongExtra("market_id", -1);
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(context);
         myDialog.setTitle("Cerrar lista");
         myDialog.setMessage("Se quitaran los productos de la misma");
 
-        myDialog.setPositiveButton("Cerrar lista", (dialogInterface, i) -> AsyncTask.execute(() -> onCloseListClicked(intent.getLongExtra("market_id", -1))));
+        myDialog.setPositiveButton("Cerrar lista", (dialogInterface, i) -> AsyncTask.execute(() -> {
+            onCloseListClicked(marketId);
+            onSupportNavigateUp();
+        }));
         myDialog.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
         myDialog.show();
+    }
+
+    private void bindCloseAllCheckedDialog(final Context context) {
+        Long marketId = getIntent().getLongExtra("market_id", -1);
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(context);
+        myDialog.setTitle("Productos comprados");
+        myDialog.setMessage("Todos los productos fueron comprados. ¿Quieres vaciar la lista?");
+
+        myDialog.setPositiveButton("Cerrar lista", (dialogInterface, i) -> AsyncTask.execute(() -> {
+            onCloseListClicked(marketId);
+            navigateUp();
+        }));
+        myDialog.setNegativeButton("No cerrar", (dialogInterface, i) -> {
+            dialogInterface.cancel();
+            navigateUp();
+        });
+        myDialog.show();
+    }
+
+    private void navigateUp() {
+        finish();
     }
 }

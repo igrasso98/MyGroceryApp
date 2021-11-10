@@ -35,6 +35,15 @@ public class MarketProductAdapter extends RecyclerView.Adapter<MarketProductView
         this.listener = listener;
     }
 
+    public boolean hasUncheckedProducts() {
+        for (Product product : dataset) {
+            if (!product.getChecked()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @NonNull
     @Override
     public MarketProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
