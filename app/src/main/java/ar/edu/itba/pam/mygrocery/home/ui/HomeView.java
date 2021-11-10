@@ -8,5 +8,6 @@ import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 
 public interface HomeView {
-    void bindProducts(final List<Category> model);
+    void bindProducts(List<Category> model);
+    void addMarkets(List<Market> markets);
 }

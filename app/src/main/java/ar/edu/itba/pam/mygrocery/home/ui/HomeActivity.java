@@ -14,6 +14,7 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
@@ -72,7 +73,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, OnBuyPr
     public void bindProducts(List<Category> model) {
         productsAdapter.setDataset(model);
         productsView.bind(productsAdapter);
+    }
 
+    @Override
+    public void addMarkets(List<Market> markets) {
+        productsAdapter.setMarketsDataset(markets);
+        productsView.bind(productsAdapter);
     }
 
     @Override
