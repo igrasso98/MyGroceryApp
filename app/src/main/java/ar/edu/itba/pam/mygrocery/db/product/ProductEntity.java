@@ -23,4 +23,7 @@ public class ProductEntity {
 
     @ColumnInfo(name = "product_description")
     public String description;
+
+    @ColumnInfo(name = "product_autorestock")
+    public Integer autorestock;
 }

@@ -78,8 +78,8 @@ public class AddProductActivity extends AppCompatActivity implements AddProductV
     }
 
     @Override
-    public void onConfirm(String name, String description, Long categoryId, Long marketId) {
-        presenter.onAddProductConfirm(name, description, categoryId, marketId);
+    public void onConfirm(String name, String description, Long categoryId, Long marketId, int autorestock) {
+        presenter.onAddProductConfirm(name, description, categoryId, marketId, autorestock);
     }
 
     @Override

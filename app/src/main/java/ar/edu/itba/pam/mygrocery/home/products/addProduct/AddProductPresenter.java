@@ -49,8 +49,8 @@ public class AddProductPresenter {
         marketsDisposable.dispose();
     }
 
-    public void onAddProductConfirm(String name, String description, Long categoryId, Long marketId) {
-        productsRepository.addProduct(new Product(name, description, categoryId, marketId));
+    public void onAddProductConfirm(String name, String description, Long categoryId, Long marketId, int autorestock) {
+        productsRepository.addProduct(new Product(name, description, categoryId, marketId, autorestock));
     }
 
     public void onCreateMarket(String name) {
