@@ -100,6 +100,4 @@ public class MarketsActivity extends AppCompatActivity implements MarketsView, O
         finish();
         return true;
     }
-
-
 }

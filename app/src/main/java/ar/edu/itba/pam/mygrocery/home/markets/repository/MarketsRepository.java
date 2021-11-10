@@ -24,4 +24,6 @@ public interface MarketsRepository {
     void buyProduct(final Long productId, final Long marketId);
 
     public void checkProduct(Long marketProductId, Boolean check);
+
+    void closeMarketProductsList(Long marketId);
 }

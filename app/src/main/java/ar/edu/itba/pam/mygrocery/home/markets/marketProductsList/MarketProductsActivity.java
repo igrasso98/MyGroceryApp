@@ -1,7 +1,13 @@
 package ar.edu.itba.pam.mygrocery.home.markets.marketProductsList;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,17 +16,16 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.R;
 import ar.edu.itba.pam.mygrocery.db.MyGroceryDb;
-import ar.edu.itba.pam.mygrocery.home.markets.MarketAdapter;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.marketProductsList.ui.MarketProductsListView;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketMapper;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.RoomMarketsRepository;
-import ar.edu.itba.pam.mygrocery.home.products.OnBuyProductClickedListener;
+import ar.edu.itba.pam.mygrocery.home.markets.ui.MarketsActivity;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
 
-public class MarketProductsActivity extends AppCompatActivity implements MarketProductsView, OnCheckProductClickedListener {
+public class MarketProductsActivity extends AppCompatActivity implements MarketProductsView, OnCheckProductClickedListener, OnCloseListClickedListener {
     private MarketProductAdapter marketProductAdapter;
     private MarketProductsPresenter presenter;
     private MarketProductsListView marketProductsListView;
@@ -87,6 +92,40 @@ public class MarketProductsActivity extends AppCompatActivity implements MarketP
     @Override
     public void onCheckProduct(Long marketProductId, Boolean check) {
         presenter.onCheckProductClicked(marketProductId, check);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_navigation_market_product_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.delete_item) {
+            bindCloseDialog(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCloseListClicked(Long marketId) {
+        presenter.onCloseListClicked(marketId);
+        onSupportNavigateUp();
+    }
+
+    private void bindCloseDialog(final Context context) {
+        Intent intent = getIntent();
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(context);
+        myDialog.setTitle("Cerrar lista");
+        myDialog.setMessage("Se quitaran los productos de la misma");
+
+        myDialog.setPositiveButton("Cerrar lista", (dialogInterface, i) -> AsyncTask.execute(() -> onCloseListClicked(intent.getLongExtra("market_id", -1))));
+        myDialog.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.cancel());
+        myDialog.show();
     }
 }

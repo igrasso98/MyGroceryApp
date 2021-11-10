@@ -22,10 +22,9 @@ public interface MarketProductsDao {
     @Insert
     void insert(final MarketAllProductsEntity marketAllProductsEntity);
 
-    @Delete
-    void delete(final MarketAllProductsEntity marketAllProductsEntity);
-
     @Query("UPDATE marketLists SET is_check = :check  WHERE market_product_id = :id")
     void updateIsCheck(Long id, Boolean check);
 
+    @Query("DELETE FROM marketLists WHERE my_market_id = :marketId")
+    void clearMarket(Long marketId);
 }
