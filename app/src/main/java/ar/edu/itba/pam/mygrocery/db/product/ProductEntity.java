@@ -28,5 +28,5 @@ public class ProductEntity {
     public Integer autorestock;
 
     @ColumnInfo(name = "product_last_purchased")
-    public Long timestamp;
+    public Long lastPurchased;
 }

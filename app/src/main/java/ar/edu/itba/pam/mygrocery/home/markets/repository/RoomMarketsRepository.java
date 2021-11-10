@@ -8,6 +8,7 @@ import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProduct;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProductsDao;
+import ar.edu.itba.pam.mygrocery.db.product.ProductDao;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductMapper;
@@ -15,6 +16,7 @@ import io.reactivex.Flowable;
 
 public class RoomMarketsRepository implements MarketsRepository {
 
+    private final ProductDao productDao;
     private final MarketDao marketDao;
     private final MarketProductsDao marketProductsDao;
     private final MarketMapper marketMapper;
@@ -22,7 +24,8 @@ public class RoomMarketsRepository implements MarketsRepository {
 
     private Flowable<List<Market>> markets;
 
-    public RoomMarketsRepository(final MarketDao marketDao, final MarketProductsDao marketProductsDao, final MarketMapper marketMapper, final ProductMapper productMapper) {
+    public RoomMarketsRepository(final ProductDao productDao, final MarketDao marketDao, final MarketProductsDao marketProductsDao, final MarketMapper marketMapper, final ProductMapper productMapper) {
+        this.productDao = productDao;
         this.marketDao = marketDao;
         this.marketProductsDao = marketProductsDao;
         this.marketMapper = marketMapper;
@@ -85,7 +88,10 @@ public class RoomMarketsRepository implements MarketsRepository {
 
     @Override
     public void checkProduct(Long marketProductId, Boolean check) {
-        marketProductsDao.updateIsCheck(marketProductId,check);
+        marketProductsDao.updateIsCheck(marketProductId, check);
+        if (check) {
+            productDao.updateLastPurchased(marketProductsDao.getProductId(marketProductId), System.currentTimeMillis());
+        }
     }
 
     @Override

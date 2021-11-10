@@ -50,7 +50,7 @@ public class AddProductPresenter {
     }
 
     public void onAddProductConfirm(String name, String description, Long categoryId, Long marketId, int autorestock) {
-        productsRepository.addProduct(new Product(name, description, categoryId, marketId, autorestock));
+        productsRepository.addProduct(new Product(name, description, categoryId, marketId, autorestock, System.currentTimeMillis()));
     }
 
     public void onCreateMarket(String name) {

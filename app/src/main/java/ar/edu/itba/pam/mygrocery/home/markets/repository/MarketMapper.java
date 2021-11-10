@@ -5,8 +5,6 @@ import java.util.List;
 
 import ar.edu.itba.pam.mygrocery.db.market.MarketEntity;
 import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProducts;
-import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketAllProductsEntity;
-import ar.edu.itba.pam.mygrocery.db.marketProducts.MarketProduct;
 import ar.edu.itba.pam.mygrocery.db.product.ProductEntity;
 import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Product;
@@ -68,6 +66,6 @@ public class MarketMapper {
     }
 
     private Product productFromEntity(ProductEntity productEntity) {
-        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId, productEntity.autorestock);
+        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId, productEntity.autorestock, productEntity.lastPurchased);
     }
 }
