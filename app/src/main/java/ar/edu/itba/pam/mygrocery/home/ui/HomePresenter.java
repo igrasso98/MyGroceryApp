@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.itba.pam.mygrocery.home.markets.domain.Market;
 import ar.edu.itba.pam.mygrocery.home.markets.repository.MarketsRepository;
 import ar.edu.itba.pam.mygrocery.home.products.domain.Category;
 import ar.edu.itba.pam.mygrocery.home.products.repository.ProductsRepository;
@@ -18,6 +19,7 @@ public class HomePresenter {
     private final WeakReference<HomeView> view;
 
     private Disposable productsDisposable;
+    private Disposable marketsDisposable;
 
     public HomePresenter(final HomeView view, final ProductsRepository productsRepository, final MarketsRepository marketsRepository) {
         this.view = new WeakReference<>(view);
@@ -32,12 +34,19 @@ public class HomePresenter {
 
     public void onViewAttached() {
         productsDisposable = productsRepository.getProductsByCategory().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onProductsReceived);
+        marketsDisposable = marketsRepository.getMarkets().subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread()).subscribe(this::onMarketsReceived);
     }
 
     private void onProductsReceived(final List<Category> model) {
         if (view.get() != null) {
             final List<Category> categories = removeEmptyCategories(model);
             view.get().bindProducts(categories);
+        }
+    }
+
+    private void onMarketsReceived(final List<Market> model) {
+        if (view.get() != null) {
+            view.get().addMarkets(model);
         }
     }
 
