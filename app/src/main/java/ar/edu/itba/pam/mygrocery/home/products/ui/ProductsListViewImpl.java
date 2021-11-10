@@ -29,7 +29,7 @@ public class ProductsListViewImpl extends RecyclerView implements ProductsListVi
         setHasFixedSize(true);
         setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         if (productsAdapter.getItemCount() == 0) {
-            setBackgroundResource(R.drawable.ic_empty_products_list);
+            setBackgroundResource(R.drawable.ic_empty__2_);
         } else {
             setBackgroundResource(R.color.white);
         }

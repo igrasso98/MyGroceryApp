@@ -3,46 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools='http://schemas.android.com/tools'
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="68dp"
     android:layout_gravity="center"
     android:background="@drawable/tile_background"
     android:gravity="start"
+    android:paddingStart="16dp"
     android:orientation="horizontal">
 
-
-    <ImageView
-        android:id="@+id/market_image"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:src="@drawable/ic_baseline_image_24" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:orientation="vertical">
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
 
         <TextView
             android:id="@+id/market_name"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start" />
+            android:layout_gravity="center" />
 
-        <TextView
-            android:id="@+id/market_total_products"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start" />
-
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/market_total_products"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <ImageView
         android:id="@+id/shop_product"
