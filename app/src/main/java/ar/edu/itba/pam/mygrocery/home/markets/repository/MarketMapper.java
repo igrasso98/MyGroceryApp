@@ -68,6 +68,6 @@ public class MarketMapper {
     }
 
     private Product productFromEntity(ProductEntity productEntity) {
-        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId);
+        return new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, productEntity.marketId, productEntity.autorestock);
     }
 }

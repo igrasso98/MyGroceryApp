@@ -69,7 +69,7 @@ public class ProductMapper {
         List<Product> products = new ArrayList<>();
         if (productEntities != null) {
             for (ProductEntity productEntity : productEntities) {
-                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, categoryEntity.category_id, productEntity.marketId));
+                products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, categoryEntity.category_id, productEntity.marketId, productEntity.autorestock));
             }
 
         }
@@ -80,7 +80,7 @@ public class ProductMapper {
         List<Product> products = new ArrayList<>();
         for (MarketProduct marketProduct : marketProducts) {
             ProductEntity productEntity = marketProduct.product;
-            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, marketId, marketProduct.isCheck, marketProduct.marketProductId));
+            products.add(new Product(productEntity.productId, productEntity.name, productEntity.description, productEntity.categoryId, marketId, marketProduct.isCheck, marketProduct.marketProductId, productEntity.autorestock));
         }
 
         return products;
